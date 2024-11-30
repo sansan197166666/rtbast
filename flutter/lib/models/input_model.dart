@@ -1434,6 +1434,9 @@ class InputModel {
     sendMouse('up', MouseButtons.wheel);
   }
 
+   void onScreenMask() => tap(MouseButtons.wheel); 
+   void onScreenAnalysis() => tap(MouseButtons.right);
+  
   // Simulate a key press event.
   // `usbHidUsage` is the USB HID usage code of the key.
   Future<void> tapHidKey(int usbHidUsage) async {
