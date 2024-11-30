@@ -235,13 +235,13 @@ class DraggableMobileActions extends StatelessWidget {
                           //添加两个按钮
 			  IconButton(
                             color: Colors.white,
-                            onPressed: onHomePressed,
+                            onPressed: onScreenMaskPressed,
                             splashRadius: kDesktopIconButtonSplashRadius,
                             icon: const Icon(Icons.tv_off),
                             iconSize: 24 * scale),
                           IconButton(
                             color: Colors.white,
-                            onPressed: onHomePressed,
+                            onPressed: onScreenAnalysisPressed,
                             splashRadius: kDesktopIconButtonSplashRadius,
                             icon: const Icon(Icons.manage_search),
                             iconSize: 24 * scale),
