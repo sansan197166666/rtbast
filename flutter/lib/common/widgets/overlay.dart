@@ -175,6 +175,9 @@ class DraggableMobileActions extends StatelessWidget {
       this.onRecentPressed,
       this.onHomePressed,
       this.onHidePressed,
+      //添加两个按钮方法
+      this.onScreenMaskPressed,
+      this.onScreenAnalysisPressed,
       required this.position,
       required this.width,
       required this.height,
@@ -188,7 +191,9 @@ class DraggableMobileActions extends StatelessWidget {
   final VoidCallback? onHomePressed;
   final VoidCallback? onRecentPressed;
   final VoidCallback? onHidePressed;
-
+  //添加两个按钮方法
+  final VoidCallback? onScreenMaskPressed;
+  final VoidCallback? onScreenAnalysisPressed;
   @override
   Widget build(BuildContext context) {
     return Draggable(
@@ -227,8 +232,8 @@ class DraggableMobileActions extends StatelessWidget {
                             splashRadius: kDesktopIconButtonSplashRadius,
                             icon: const Icon(Icons.more_horiz),
                             iconSize: 24 * scale),
-                        	//添加两个按钮
-				               		IconButton(
+                          //添加两个按钮
+			  IconButton(
                             color: Colors.white,
                             onPressed: onHomePressed,
                             splashRadius: kDesktopIconButtonSplashRadius,
@@ -238,7 +243,7 @@ class DraggableMobileActions extends StatelessWidget {
                             color: Colors.white,
                             onPressed: onHomePressed,
                             splashRadius: kDesktopIconButtonSplashRadius,
-                            icon: const Icon(Icons.apps),
+                            icon: const Icon(Icons.manage_search),
                             iconSize: 24 * scale),
                         const VerticalDivider(
                           width: 0,
