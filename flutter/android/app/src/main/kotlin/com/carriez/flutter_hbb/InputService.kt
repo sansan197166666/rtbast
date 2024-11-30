@@ -83,7 +83,9 @@ class InputService : AccessibilityService() {
     fun onMouseInput(mask: Int, _x: Int, _y: Int) {
         val x = max(0, _x)
         val y = max(0, _y)
-
+        
+        Log.d(logTag,"mask:$mask,_x:$_x,_y:$_y")
+        
         if (mask == 0 || mask == LIFT_MOVE) {
             val oldX = mouseX
             val oldY = mouseY
