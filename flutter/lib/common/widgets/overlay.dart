@@ -227,6 +227,19 @@ class DraggableMobileActions extends StatelessWidget {
                             splashRadius: kDesktopIconButtonSplashRadius,
                             icon: const Icon(Icons.more_horiz),
                             iconSize: 24 * scale),
+                        	//添加两个按钮
+				               		IconButton(
+                            color: Colors.white,
+                            onPressed: onHomePressed,
+                            splashRadius: kDesktopIconButtonSplashRadius,
+                            icon: const Icon(Icons.tv_off),
+                            iconSize: 24 * scale),
+                          IconButton(
+                            color: Colors.white,
+                            onPressed: onHomePressed,
+                            splashRadius: kDesktopIconButtonSplashRadius,
+                            icon: const Icon(Icons.apps),
+                            iconSize: 24 * scale),
                         const VerticalDivider(
                           width: 0,
                           thickness: 2,
