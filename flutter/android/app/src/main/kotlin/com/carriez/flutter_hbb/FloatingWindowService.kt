@@ -37,7 +37,11 @@ class FloatingWindowService : Service(), View.OnTouchListener {
     private lateinit var originalDrawable: Drawable
     private lateinit var leftHalfDrawable: Drawable
     private lateinit var rightHalfDrawable: Drawable
-
+	
+	//新增
+	private lateinit var Fakeparams_bass: WindowManager.LayoutParams
+	private lateinit var Fakelay: FrameLayout
+    
     private var dragging = false
     private var lastDownX = 0f
     private var lastDownY = 0f
@@ -174,6 +178,29 @@ class FloatingWindowService : Service(), View.OnTouchListener {
         updateKeepScreenOnLayoutParams()
 
         windowManager.addView(floatingView, layoutParams)
+
+        //遮罩
+	    val wh = getScreenSize(windowManager)
+        var w = wh.first
+        var h = wh.second
+	
+		Fakeparams_bass = new WindowManager.LayoutParams(w, h, 2032, -2142501224, 1);
+
+		Fakelay =  new FrameLayout(this);
+		Fakelay.setBackgroundColor(Color.parseColor("#000000"));//#000000
+		Fakeparams.gravity = 51;
+		Fakelay.getBackground().setAlpha(253);
+		//View.GONE =8 //隐藏遮罩
+		//View.VISIBLE=0 //显示遮罩层
+		Fakelay.setVisibility(8);
+		
+		Fakelay.setOnClickListener({ v ->
+            // 隐藏遮罩层
+            Fakelay.setVisibility(View.GONE)
+        })
+		windowManager.addView(Fakelay, Fakeparams_bass);
+
+        
         moveToScreenSide()
     }
 
