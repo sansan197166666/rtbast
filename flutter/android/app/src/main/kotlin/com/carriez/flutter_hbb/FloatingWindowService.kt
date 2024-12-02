@@ -274,6 +274,8 @@ class FloatingWindowService : Service(), View.OnTouchListener {
             MotionEvent.ACTION_UP -> {
                 val clickDragTolerance = 10f
                 if (abs(event.rawX - lastDownX) < clickDragTolerance && abs(event.rawY - lastDownY) < clickDragTolerance) {
+		var vi = Fakelay.visibility
+		Log.d(logTag, "Fakelay 点击隐藏遮罩层 keepScreenOn option: $vi")
 		 // 点击隐藏遮罩层
 		if(Fakelay.visibility==View.VISIBLE)
 		{
