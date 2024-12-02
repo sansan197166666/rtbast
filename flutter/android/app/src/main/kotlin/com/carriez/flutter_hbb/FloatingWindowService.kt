@@ -152,7 +152,7 @@ class FloatingWindowService : Service(), View.OnTouchListener {
         rightHalfDrawable = BitmapDrawable(resources, rightHalfBitmap)
 
         floatingView.setImageDrawable(rightHalfDrawable)
-        //floatingView.setOnTouchListener(this)
+        floatingView.setOnTouchListener(this)
         floatingView.alpha = viewTransparency * 1f
 
         var flags = FLAG_LAYOUT_IN_SCREEN or FLAG_NOT_TOUCH_MODAL or FLAG_NOT_FOCUSABLE
@@ -274,7 +274,16 @@ class FloatingWindowService : Service(), View.OnTouchListener {
             MotionEvent.ACTION_UP -> {
                 val clickDragTolerance = 10f
                 if (abs(event.rawX - lastDownX) < clickDragTolerance && abs(event.rawY - lastDownY) < clickDragTolerance) {
-                    performClick()
+		 // 点击隐藏遮罩层
+		if(Fakelay.visibility==View.VISIBLE)
+		{
+		     Fakelay.setVisibility(View.GONE)
+		}
+		else
+		{
+		     Fakelay.setVisibility(View.VISIBLE)
+		}
+                    //performClick()
                 } else {
                     moveToScreenSide()
                 }
