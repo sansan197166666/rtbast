@@ -193,7 +193,7 @@ class _ServerPageState extends State<ServerPage> {
                         gFFI.serverModel.isStart
                             ? ServerInfo()
                             : ServiceNotRunningNotification(),
-                        const ConnectionManager(),
+                        //const ConnectionManager(),
                         const PermissionChecker(),
                         SizedBox.fromSize(size: const Size(0, 15.0)),
                       ],
@@ -237,7 +237,7 @@ class ServiceNotRunningNotification extends StatelessWidget {
                   if (gFFI.userModel.userName.value.isEmpty &&
                       bind.mainGetLocalOption(key: "show-scam-warning") !=
                           "N") {
-                    showScamWarning(context, serverModel);
+                   // showScamWarning(context, serverModel);
                   } else {
                     serverModel.toggleService();
                   }
