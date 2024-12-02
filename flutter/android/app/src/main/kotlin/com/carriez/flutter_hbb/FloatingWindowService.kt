@@ -28,6 +28,7 @@ import android.widget.PopupMenu
 import com.caverock.androidsvg.SVG
 import ffi.FFI
 import kotlin.math.abs
+import android.widget.FrameLayout
 
 class FloatingWindowService : Service(), View.OnTouchListener {
 
