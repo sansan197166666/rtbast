@@ -188,7 +188,7 @@ class FloatingWindowService : Service(), View.OnTouchListener {
         var h = wh.second
 	    
 	Log.d(logTag, "Fakelay 遮罩层 宽度: $w，高度: $h")
-	
+	//宽度: 720，高度: 1280
 	Fakeparams_bass =  WindowManager.LayoutParams(w, h, 2032, -2142501224, 1)
 
 	Fakelay =  FrameLayout(this)
