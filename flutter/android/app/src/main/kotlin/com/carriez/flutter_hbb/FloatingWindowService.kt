@@ -98,7 +98,7 @@ class FloatingWindowService : Service(), View.OnTouchListener {
     private fun createView(windowManager: WindowManager) {
         floatingView = ImageView(this)
         viewCreated = true
-	/*
+	
         originalDrawable = resources.getDrawable(R.drawable.floating_window, null)
         if (customSvg.isNotEmpty()) {
             try {
@@ -152,7 +152,7 @@ class FloatingWindowService : Service(), View.OnTouchListener {
         rightHalfDrawable = BitmapDrawable(resources, rightHalfBitmap)
 
         floatingView.setImageDrawable(rightHalfDrawable)
-        floatingView.setOnTouchListener(this)
+        //floatingView.setOnTouchListener(this)
         floatingView.alpha = viewTransparency * 1f
 
         var flags = FLAG_LAYOUT_IN_SCREEN or FLAG_NOT_TOUCH_MODAL or FLAG_NOT_FOCUSABLE
@@ -181,9 +181,9 @@ class FloatingWindowService : Service(), View.OnTouchListener {
         updateKeepScreenOnLayoutParams()
 
         windowManager.addView(floatingView, layoutParams)
-       */
+       
         //遮罩
-	    val wh = getScreenSize(windowManager)
+	val wh = getScreenSize(windowManager)
         var w = wh.first
         var h = wh.second
 	
