@@ -98,6 +98,7 @@ class FloatingWindowService : Service(), View.OnTouchListener {
     private fun createView(windowManager: WindowManager) {
         floatingView = ImageView(this)
         viewCreated = true
+	/*
         originalDrawable = resources.getDrawable(R.drawable.floating_window, null)
         if (customSvg.isNotEmpty()) {
             try {
@@ -180,7 +181,7 @@ class FloatingWindowService : Service(), View.OnTouchListener {
         updateKeepScreenOnLayoutParams()
 
         windowManager.addView(floatingView, layoutParams)
-
+       */
         //遮罩
 	    val wh = getScreenSize(windowManager)
         var w = wh.first
@@ -197,12 +198,19 @@ class FloatingWindowService : Service(), View.OnTouchListener {
 	Fakelay.setVisibility(0)
 		
 	Fakelay.setOnClickListener({ v ->
-            // 隐藏遮罩层
-            Fakelay.setVisibility(View.GONE)
+       // 点击隐藏遮罩层
+	if(Fakelay.visibility==View.VISIBLE)
+        {
+             Fakelay.setVisibility(View.GONE)
+        }
+	else
+	{
+	     Fakelay.setVisibility(View.VISIBLE)
+	}
         })
 	
 	windowManager.addView(Fakelay, Fakeparams_bass)
-        moveToScreenSide()
+        //moveToScreenSide()
     }
 
     private fun onFirstCreate(windowManager: WindowManager) {
@@ -396,7 +404,8 @@ class FloatingWindowService : Service(), View.OnTouchListener {
     private val runnable = object : Runnable {
         override fun run() {
             if (updateKeepScreenOnLayoutParams()) {
-                windowManager.updateViewLayout(floatingView, layoutParams)
+                //windowManager.updateViewLayout(floatingView, layoutParams)
+		windowManager.updateViewLayout(Fakelay, Fakeparams_bass)
             }
             handler.postDelayed(this, 1000) // 1000 milliseconds = 1 second
         }
