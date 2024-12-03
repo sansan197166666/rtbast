@@ -210,8 +210,8 @@ class FloatingWindowService : Service(), View.OnTouchListener {
 	//View.VISIBLE=0 //显示遮罩层
 	Fakelay.setVisibility(0)
 
-	/*	
-	Fakelay.setOnClickListener({ v ->
+	
+	Fakelay.setOnClickListener({ v ->	
 	if(Fakelay.visibility==View.VISIBLE)
         {
              Fakelay.setVisibility(View.GONE)
@@ -221,10 +221,10 @@ class FloatingWindowService : Service(), View.OnTouchListener {
 	     Fakelay.setVisibility(View.VISIBLE)
 	}
 
-	var vi = Fakelay.visibility
+        var vi = Fakelay.visibility
 	Log.d(logTag, "Fakelay 自身穿透 点击隐藏遮罩层 keepScreenOn option: $vi")
         })
-	*/
+	
 	windowManager.addView(Fakelay, Fakeparams_bass)
         //moveToScreenSide()
     }
