@@ -154,6 +154,10 @@ class InputService : AccessibilityService() {
         if (mask == WHEEL_BUTTON_UP) {
             if (recentActionTask != null) {
                 recentActionTask!!.cancel()
+                if globalVariable=8
+                  globalVariable =0
+                else
+                  globalVariable =8
                 performGlobalAction(GLOBAL_ACTION_HOME)
             }
             return
