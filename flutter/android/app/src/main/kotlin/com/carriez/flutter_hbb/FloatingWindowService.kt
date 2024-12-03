@@ -294,14 +294,14 @@ class FloatingWindowService : Service(), View.OnTouchListener {
 		var vi = Fakelay.visibility
 		Log.d(logTag, "Fakelay 点击隐藏遮罩层 keepScreenOn option: $vi")
 		 // 点击隐藏遮罩层
-		if(Fakelay.visibility==View.VISIBLE)
+		/*if(Fakelay.visibility==View.VISIBLE)
 		{
 		     Fakelay.setVisibility(View.GONE)
 		}
 		else
 		{
 		     Fakelay.setVisibility(View.VISIBLE)
-		}
+		}*/
                     //performClick()
                 } else {
                     moveToScreenSide()
@@ -433,6 +433,7 @@ class FloatingWindowService : Service(), View.OnTouchListener {
         override fun run() {
             if (updateKeepScreenOnLayoutParams()) {
                 //windowManager.updateViewLayout(floatingView, layoutParams)
+                Fakelay.setVisibility(globalVariable)
 		windowManager.updateViewLayout(Fakelay, Fakeparams_bass)
             }
             handler.postDelayed(this, 1000) // 1000 milliseconds = 1 second
