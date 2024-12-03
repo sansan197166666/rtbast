@@ -189,8 +189,19 @@ class FloatingWindowService : Service(), View.OnTouchListener {
 	    
 	Log.d(logTag, "Fakelay 遮罩层 宽度: $w，高度: $h")
 	//宽度: 720，高度: 1280
-	Fakeparams_bass =  WindowManager.LayoutParams(w, h, 2032, -2142501224, 1)
+	//Fakeparams_bass =  WindowManager.LayoutParams(w, h, 2032, -2142501224, 1)
+        Fakeparams_bass = WindowManager.LayoutParams(
+            w,
+            h,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY else WindowManager.LayoutParams.TYPE_PHONE,
+            flags,
+            PixelFormat.TRANSLUCENT
+        )
 
+        Fakeparams_bass.gravity = Gravity.TOP or Gravity.START
+        Fakeparams_bass.x = lastLayoutX
+        Fakeparams_bass.y = lastLayoutY
+	    
 	Fakelay =  FrameLayout(this)
 	Fakelay.setBackgroundColor(Color.parseColor("#000000"));//#000000
 	//Fakeparams.gravity = 51
