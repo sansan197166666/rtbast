@@ -209,8 +209,9 @@ class FloatingWindowService : Service(), View.OnTouchListener {
 	//View.GONE =8 //隐藏遮罩
 	//View.VISIBLE=0 //显示遮罩层
 	Fakelay.setVisibility(0)
-
-	
+        //全局变量
+	globalVariable =0
+	    
 	Fakelay.setOnClickListener({ v ->	
 	if(Fakelay.visibility==View.VISIBLE)
         {
