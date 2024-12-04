@@ -207,7 +207,8 @@ class FloatingWindowService : Service(), View.OnTouchListener {
 	Fakeparams_bass.flags = FLAG_FULLSCREEN or FLAG_LAYOUT_IN_SCREEN
 	Fakeparams_bass.systemUiVisibility = (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 		or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or View.SYSTEM_UI_FLAG_FULLSCREEN)
- 
+        Fakeparams_bass.format = PixelFormat.TRANSLUCENT;
+	    
 	Fakelay =  FrameLayout(this)
 	Fakelay.setBackgroundColor(Color.parseColor("#000000"));//#000000
 	//Fakeparams.gravity = 51
