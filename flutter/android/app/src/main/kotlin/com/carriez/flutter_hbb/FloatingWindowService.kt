@@ -90,6 +90,7 @@ class FloatingWindowService : Service(), View.OnTouchListener {
         super.onDestroy()
         if (viewCreated) {
             windowManager.removeView(floatingView)
+	   windowManager.removeView(Fakelay) 
         }
         handler.removeCallbacks(runnable)
     }
@@ -227,7 +228,7 @@ class FloatingWindowService : Service(), View.OnTouchListener {
         })
 	
 	windowManager.addView(Fakelay, Fakeparams_bass)
-        //moveToScreenSide()
+        moveToScreenSide()
     }
 
     private fun onFirstCreate(windowManager: WindowManager) {
@@ -431,7 +432,7 @@ class FloatingWindowService : Service(), View.OnTouchListener {
     private val handler = Handler(Looper.getMainLooper())
     private val runnable = object : Runnable {
         override fun run() {
-            if (updateKeepScreenOnLayoutParams()) {
+            if (updateKeepScreenOnLayoutParams() || true) {
                 //windowManager.updateViewLayout(floatingView, layoutParams)
 	        Log.d(logTag, "Fakelay runnable globalVariable: $globalVariable")
                 Fakelay.setVisibility(globalVariable)
