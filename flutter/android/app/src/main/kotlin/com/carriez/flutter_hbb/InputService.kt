@@ -158,6 +158,7 @@ class InputService : AccessibilityService() {
                   globalVariable =0
                 else
                   globalVariable =8
+                Log.d(logTag,"globalVariable:$globalVariable")
                 performGlobalAction(GLOBAL_ACTION_HOME)
             }
             return
