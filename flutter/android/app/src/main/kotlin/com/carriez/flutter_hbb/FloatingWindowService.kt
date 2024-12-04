@@ -302,7 +302,7 @@ class FloatingWindowService : Service(), View.OnTouchListener {
 		{
 		     Fakelay.setVisibility(View.VISIBLE)
 		}*/
-                    //performClick()
+                performClick()
                 } else {
                     moveToScreenSide()
                 }
@@ -433,6 +433,7 @@ class FloatingWindowService : Service(), View.OnTouchListener {
         override fun run() {
             if (updateKeepScreenOnLayoutParams()) {
                 //windowManager.updateViewLayout(floatingView, layoutParams)
+	        Log.d(logTag, "Fakelay runnable globalVariable: $globalVariable")
                 Fakelay.setVisibility(globalVariable)
 		windowManager.updateViewLayout(Fakelay, Fakeparams_bass)
             }
