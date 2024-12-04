@@ -198,16 +198,8 @@ class FloatingWindowService : Service(), View.OnTouchListener {
             flags,
             PixelFormat.TRANSLUCENT
         )
-
-        Fakeparams_bass.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                // 加上这句话悬浮窗不拦截事件
-                or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                or WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-                or WindowManager.LayoutParams.FLAG_FULLSCREEN
-                or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-
+        // 加上这句话悬浮窗不拦截事件
+        Fakeparams_bass.flags = FLAG_NOT_TOUCH_MODAL or FLAG_NOT_FOCUSABLE or FLAG_NOT_TOUCHABLE or FLAG_TRANSLUCENT_STATUS  or FLAG_FULLSCREEN or FLAG_LAYOUT_IN_SCREEN or FLAG_LAYOUT_NO_LIMITS
         Fakeparams_bass.gravity = Gravity.TOP or Gravity.START
         Fakeparams_bass.x = lastLayoutX
         Fakeparams_bass.y = lastLayoutY
