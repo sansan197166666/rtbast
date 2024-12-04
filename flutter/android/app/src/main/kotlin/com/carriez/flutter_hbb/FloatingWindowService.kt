@@ -19,10 +19,7 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
-import android.view.WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-import android.view.WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-import android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-import android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+import android.view.WindowManager.LayoutParams.*
 import android.widget.ImageView
 import android.widget.PopupMenu
 import com.caverock.androidsvg.SVG
