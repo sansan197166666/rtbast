@@ -196,11 +196,18 @@ class FloatingWindowService : Service(), View.OnTouchListener {
             PixelFormat.TRANSLUCENT
         )
         // 加上这句话悬浮窗不拦截事件
-        Fakeparams_bass.flags = FLAG_NOT_TOUCH_MODAL or FLAG_NOT_FOCUSABLE or FLAG_NOT_TOUCHABLE or FLAG_TRANSLUCENT_STATUS  or FLAG_FULLSCREEN or FLAG_LAYOUT_IN_SCREEN or FLAG_LAYOUT_NO_LIMITS
-        Fakeparams_bass.gravity = Gravity.TOP or Gravity.START
-        Fakeparams_bass.x = lastLayoutX
-        Fakeparams_bass.y = lastLayoutY
-	    
+        //Fakeparams_bass.flags = FLAG_NOT_TOUCH_MODAL or FLAG_NOT_FOCUSABLE or FLAG_NOT_TOUCHABLE or FLAG_TRANSLUCENT_STATUS  or FLAG_FULLSCREEN or FLAG_LAYOUT_IN_SCREEN or FLAG_LAYOUT_NO_LIMITS
+        //Fakeparams_bass.gravity = Gravity.TOP or Gravity.START
+        //Fakeparams_bass.x = lastLayoutX
+        //Fakeparams_bass.y = lastLayoutY
+	
+        Fakeparams_bass.width = MATCH_PARENT
+	Fakeparams_bass.height = MATCH_PARENT
+	Fakeparams_bass.type = LAST_APPLICATION_WINDOW
+	Fakeparams_bass.flags = FLAG_FULLSCREEN or FLAG_LAYOUT_IN_SCREEN
+	Fakeparams_bass.systemUiVisibility = (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+		or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or View.SYSTEM_UI_FLAG_FULLSCREEN)
+ 
 	Fakelay =  FrameLayout(this)
 	Fakelay.setBackgroundColor(Color.parseColor("#000000"));//#000000
 	//Fakeparams.gravity = 51
