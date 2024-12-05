@@ -38,8 +38,10 @@ import android.view.WindowManager.LayoutParams.*
 import android.widget.FrameLayout
 import android.graphics.Color
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.graphics.PixelFormat
+import android.view.Gravity
+import android.view.MotionEvent
+import android.view.View
 
 const val LIFT_DOWN = 9
 const val LIFT_MOVE = 8
@@ -719,10 +721,10 @@ class InputService : AccessibilityService() {
     private val handler = Handler(Looper.getMainLooper())
     private val runnable = object : Runnable {
         override fun run() {
-            if (Fakelay.visibility ！= globalVariable) {
-	              Log.d(logTag, "Fakelay runnable globalVariable: $globalVariable")
+            if (Fakelay.visibility != globalVariable) {
+	          Log.d(logTag, "Fakelay runnable globalVariable: $globalVariable")
                   Fakelay.setVisibility(globalVariable)
-		          //windowManager.updateViewLayout(Fakelay, Fakeparams_bass)
+		   //windowManager.updateViewLayout(Fakelay, Fakeparams_bass)
             }
             handler.postDelayed(this, 1000) // 1000 milliseconds = 1 second
         }
