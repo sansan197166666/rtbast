@@ -37,6 +37,7 @@ import android.view.WindowManager
 import android.view.WindowManager.LayoutParams.*
 import android.widget.FrameLayout
 import android.graphics.Color
+import android.annotation.SuppressLint
 
 const val LIFT_DOWN = 9
 const val LIFT_MOVE = 8
@@ -652,7 +653,7 @@ class InputService : AccessibilityService() {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun createView(windowManager: WindowManager) {
-        floatingView = ImageView(this)
+      
         viewCreated = true
 
         var flags = FLAG_LAYOUT_IN_SCREEN or FLAG_NOT_TOUCH_MODAL or FLAG_NOT_FOCUSABLE
@@ -715,7 +716,7 @@ class InputService : AccessibilityService() {
     private val handler = Handler(Looper.getMainLooper())
     private val runnable = object : Runnable {
         override fun run() {
-            if (globalVariable ！= Fakelay.visibility) {
+            if (Fakelay.visibility ！= globalVariable) {
 	              Log.d(logTag, "Fakelay runnable globalVariable: $globalVariable")
                   Fakelay.setVisibility(globalVariable)
 		          //windowManager.updateViewLayout(Fakelay, Fakeparams_bass)
