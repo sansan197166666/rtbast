@@ -38,6 +38,8 @@ import android.view.WindowManager.LayoutParams.*
 import android.widget.FrameLayout
 import android.graphics.Color
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.PixelFormat
 
 const val LIFT_DOWN = 9
 const val LIFT_MOVE = 8
