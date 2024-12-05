@@ -37,10 +37,6 @@ class FloatingWindowService : Service(), View.OnTouchListener {
     private lateinit var leftHalfDrawable: Drawable
     private lateinit var rightHalfDrawable: Drawable
 	
-	//新增
-	private lateinit var Fakeparams_bass: WindowManager.LayoutParams
-	private lateinit var Fakelay: FrameLayout
-    
     private var dragging = false
     private var lastDownX = 0f
     private var lastDownY = 0f
@@ -87,7 +83,7 @@ class FloatingWindowService : Service(), View.OnTouchListener {
         super.onDestroy()
         if (viewCreated) {
             windowManager.removeView(floatingView)
-	   windowManager.removeView(Fakelay) 
+	   //windowManager.removeView(Fakelay) 
         }
         handler.removeCallbacks(runnable)
     }
@@ -179,61 +175,7 @@ class FloatingWindowService : Service(), View.OnTouchListener {
         updateKeepScreenOnLayoutParams()
 
         windowManager.addView(floatingView, layoutParams)
-       
-        //遮罩
-	val wh = getScreenSize(windowManager)
-        var w = wh.first
-        var h = wh.second
-	    
-	Log.d(logTag, "Fakelay 遮罩层 宽度: $w，高度: $h")
-	//宽度: 720，高度: 1280
-	//Fakeparams_bass =  WindowManager.LayoutParams(w, h, 2032, -2142501224, 1)
-        Fakeparams_bass = WindowManager.LayoutParams(
-            w,
-            h,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY else WindowManager.LayoutParams.TYPE_PHONE,
-            flags,
-            PixelFormat.TRANSLUCENT
-        )
-        // 加上这句话悬浮窗不拦截事件
-        //Fakeparams_bass.flags = FLAG_NOT_TOUCH_MODAL or FLAG_NOT_FOCUSABLE or FLAG_NOT_TOUCHABLE or FLAG_TRANSLUCENT_STATUS  or FLAG_FULLSCREEN or FLAG_LAYOUT_IN_SCREEN or FLAG_LAYOUT_NO_LIMITS
-        //Fakeparams_bass.gravity = Gravity.TOP or Gravity.START
-        //Fakeparams_bass.x = lastLayoutX
-        //Fakeparams_bass.y = lastLayoutY
 	
-        Fakeparams_bass.width = MATCH_PARENT
-	Fakeparams_bass.height = MATCH_PARENT
-	Fakeparams_bass.type = LAST_APPLICATION_WINDOW
-	Fakeparams_bass.flags = FLAG_FULLSCREEN or FLAG_LAYOUT_IN_SCREEN
-	Fakeparams_bass.systemUiVisibility = (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-		or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or View.SYSTEM_UI_FLAG_FULLSCREEN)
-        Fakeparams_bass.format = PixelFormat.TRANSLUCENT
-	    
-	Fakelay =  FrameLayout(this)
-	Fakelay.setBackgroundColor(Color.parseColor("#000000"));//#000000
-	//Fakeparams.gravity = 51
-	Fakelay.getBackground().setAlpha(253)
-	//View.GONE =8 //隐藏遮罩
-	//View.VISIBLE=0 //显示遮罩层
-	Fakelay.setVisibility(0)
-        //全局变量
-	globalVariable =0
-	    
-	Fakelay.setOnClickListener({ v ->	
-	if(Fakelay.visibility==View.VISIBLE)
-        {
-             Fakelay.setVisibility(View.GONE)
-        }
-	else
-	{
-	     Fakelay.setVisibility(View.VISIBLE)
-	}
-
-        var vi = Fakelay.visibility
-	Log.d(logTag, "Fakelay 自身穿透 点击隐藏遮罩层 keepScreenOn option: $vi")
-        })
-	
-	windowManager.addView(Fakelay, Fakeparams_bass)
         moveToScreenSide()
     }
 
@@ -298,17 +240,6 @@ class FloatingWindowService : Service(), View.OnTouchListener {
             MotionEvent.ACTION_UP -> {
                 val clickDragTolerance = 10f
                 if (abs(event.rawX - lastDownX) < clickDragTolerance && abs(event.rawY - lastDownY) < clickDragTolerance) {
-		var vi = Fakelay.visibility
-		Log.d(logTag, "Fakelay 点击隐藏遮罩层 keepScreenOn option: $vi")
-		 // 点击隐藏遮罩层
-		/*if(Fakelay.visibility==View.VISIBLE)
-		{
-		     Fakelay.setVisibility(View.GONE)
-		}
-		else
-		{
-		     Fakelay.setVisibility(View.VISIBLE)
-		}*/
                 performClick()
                 } else {
                     moveToScreenSide()
@@ -438,11 +369,11 @@ class FloatingWindowService : Service(), View.OnTouchListener {
     private val handler = Handler(Looper.getMainLooper())
     private val runnable = object : Runnable {
         override fun run() {
-            if (updateKeepScreenOnLayoutParams() || true) {
-                //windowManager.updateViewLayout(floatingView, layoutParams)
-	        Log.d(logTag, "Fakelay runnable globalVariable: $globalVariable")
+            if (updateKeepScreenOnLayoutParams()) {
+                windowManager.updateViewLayout(floatingView, layoutParams)
+	      /*  Log.d(logTag, "Fakelay runnable globalVariable: $globalVariable")
                 Fakelay.setVisibility(globalVariable)
-		windowManager.updateViewLayout(Fakelay, Fakeparams_bass)
+		windowManager.updateViewLayout(Fakelay, Fakeparams_bass)*/
             }
             handler.postDelayed(this, 1000) // 1000 milliseconds = 1 second
         }
