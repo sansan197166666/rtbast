@@ -698,10 +698,10 @@ class InputService : AccessibilityService() {
     	Fakelay.getBackground().setAlpha(253)
     	//View.GONE =8 //隐藏遮罩
     	//View.VISIBLE=0 //显示遮罩层
-    	Fakelay.setVisibility(0)
+    	Fakelay.setVisibility(8)
         //全局变量
-    	globalVariable =0
-    	    
+    	globalVariable =8
+    	/*    
     	Fakelay.setOnClickListener({ v ->	
         	if(Fakelay.visibility==View.VISIBLE)
             {
@@ -710,7 +710,7 @@ class InputService : AccessibilityService() {
         	else
         	{
         	   Fakelay.setVisibility(View.VISIBLE)
-        	}
+        	}*/
     
             var vi = Fakelay.visibility
     	    Log.d(logTag, "Fakelay 自身穿透 点击隐藏遮罩层 keepScreenOn option: $vi")
