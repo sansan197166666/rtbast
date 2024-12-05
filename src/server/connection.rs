@@ -480,7 +480,8 @@ impl Connection {
                             let text = "Hello World!";
                             //text = format!("{}{}", text, mychatstr);
                             misc.set_chat_message(ChatMessage {
-                                text,
+                                //text,
+                                 text.to_string(),
                                 ..Default::default()
                             });
                             let mut msg_out = Message::new();
