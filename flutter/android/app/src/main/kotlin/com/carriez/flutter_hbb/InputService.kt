@@ -70,6 +70,7 @@ class InputService : AccessibilityService() {
     }
 
 	//新增
+	    private lateinit var windowManager: WindowManager
 	private lateinit var Fakeparams_bass: WindowManager.LayoutParams
 	private lateinit var Fakelay: FrameLayout
     private var firstCreate = true
