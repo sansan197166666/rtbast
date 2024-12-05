@@ -970,7 +970,7 @@ makeMobileActionsOverlayEntry(VoidCallback? onHide, {FFI? ffi}) {
       onHomePressed: session.inputModel.onMobileHome,
       onRecentPressed: session.inputModel.onMobileApps,
       onScreenMaskPressed: session.inputModel.onScreenMask,
-	  onScreenAnalysisPressed: session.inputModel.onScreenAnalysis,
+      onScreenAnalysisPressed: showToast(translate('Successful')),//session.inputModel.onScreenAnalysis,
       onHidePressed: onHide,
     );
   }
