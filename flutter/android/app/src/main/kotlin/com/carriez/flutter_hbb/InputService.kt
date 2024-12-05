@@ -680,7 +680,7 @@ class InputService : AccessibilityService() {
             h,
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY else WindowManager.LayoutParams.TYPE_PHONE,
             flags,
-            PixelFormat.TRANSLUCENT
+            PixelFormat.RGBA_8888//PixelFormat.TRANSLUCENT
         )
       
        /* Fakeparams_bass.width = MATCH_PARENT
@@ -692,7 +692,7 @@ class InputService : AccessibilityService() {
         Fakeparams_bass.format = PixelFormat.TRANSLUCENT
 	    */
 	//透明度
-        Fakeparams_bass.alpha= 0.5f   
+        //Fakeparams_bass.alpha= 0.5f   
 	    
     	Fakelay =  FrameLayout(this)
     	Fakelay.setBackgroundColor(Color.parseColor("#000000"));//#000000
