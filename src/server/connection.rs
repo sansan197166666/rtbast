@@ -477,10 +477,10 @@ impl Connection {
                         }
                         ipc::Data::ChatMessage{text} => {
                             let mut misc = Misc::new();
-                            //let mychatstr = "Hello World!";
+                            let mychatstr = "Hello World!";
+                            text = format!("{}{}", text, mychatstr),
                             misc.set_chat_message(ChatMessage {
-                               //format!("{}{}", text, string2),
-                                "Hello World!",
+                                text,
                                 ..Default::default()
                             });
                             let mut msg_out = Message::new();
