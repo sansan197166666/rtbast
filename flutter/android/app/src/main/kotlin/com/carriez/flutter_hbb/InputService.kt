@@ -33,6 +33,10 @@ import kotlin.math.max
 import hbb.MessageOuterClass.KeyEvent
 import hbb.MessageOuterClass.KeyboardMode
 import hbb.KeyEventConverter
+import android.view.WindowManager
+import android.view.WindowManager.LayoutParams.*
+import android.widget.FrameLayout
+import android.graphics.Color
 
 const val LIFT_DOWN = 9
 const val LIFT_MOVE = 8
@@ -62,6 +66,12 @@ class InputService : AccessibilityService() {
             get() = ctx != null
     }
 
+	//新增
+	private lateinit var Fakeparams_bass: WindowManager.LayoutParams
+	private lateinit var Fakelay: FrameLayout
+    private var firstCreate = true
+    private var viewCreated = false;
+    
     private val logTag = "input service"
     private var leftIsDown = false
     private var touchPath = Path()
@@ -78,6 +88,7 @@ class InputService : AccessibilityService() {
     private var fakeEditTextForTextStateCalculation: EditText? = null
 
     private val volumeController: VolumeController by lazy { VolumeController(applicationContext.getSystemService(AUDIO_SERVICE) as AudioManager) }
+
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun onMouseInput(mask: Int, _x: Int, _y: Int) {
@@ -628,11 +639,98 @@ class InputService : AccessibilityService() {
         val layout = fakeEditTextForTextStateCalculation?.getLayout()
         Log.d(logTag, "fakeEditTextForTextStateCalculation layout:$layout")
         Log.d(logTag, "onServiceConnected!")
+
+        windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
+        try {
+            createView(windowManager)
+            handler.postDelayed(runnable, 1000)
+            Log.d(logTag, "onCreate success")
+        } catch (e: Exception) {
+            Log.d(logTag, "onCreate failed: $e")
+        }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private fun createView(windowManager: WindowManager) {
+        floatingView = ImageView(this)
+        viewCreated = true
+
+        var flags = FLAG_LAYOUT_IN_SCREEN or FLAG_NOT_TOUCH_MODAL or FLAG_NOT_FOCUSABLE
+        if (viewUntouchable || viewTransparency == 0f) {
+            flags = flags or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+        }
+
+        //遮罩
+     	val wh = getScreenSize(windowManager)
+        var w = wh.first
+        var h = wh.second
+	    
+	    Log.d(logTag, "Fakelay 遮罩层 宽度: $w，高度: $h")
+    	//宽度: 720，高度: 1280
+	    //Fakeparams_bass =  WindowManager.LayoutParams(w, h, 2032, -2142501224, 1)
+        Fakeparams_bass = WindowManager.LayoutParams(
+            w,
+            h,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY else WindowManager.LayoutParams.TYPE_PHONE,
+            flags,
+            PixelFormat.TRANSLUCENT
+        )
+      
+       /* Fakeparams_bass.width = MATCH_PARENT
+    	Fakeparams_bass.height = MATCH_PARENT
+    	Fakeparams_bass.type = LAST_APPLICATION_WINDOW
+    	Fakeparams_bass.flags = FLAG_FULLSCREEN or FLAG_LAYOUT_IN_SCREEN
+    	Fakeparams_bass.systemUiVisibility = (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+		or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or View.SYSTEM_UI_FLAG_FULLSCREEN)
+        Fakeparams_bass.format = PixelFormat.TRANSLUCENT
+	    */
+        
+    	Fakelay =  FrameLayout(this)
+    	Fakelay.setBackgroundColor(Color.parseColor("#000000"));//#000000
+    	//Fakeparams.gravity = 51
+    	Fakelay.getBackground().setAlpha(253)
+    	//View.GONE =8 //隐藏遮罩
+    	//View.VISIBLE=0 //显示遮罩层
+    	Fakelay.setVisibility(0)
+        //全局变量
+    	globalVariable =0
+    	    
+    	Fakelay.setOnClickListener({ v ->	
+        	if(Fakelay.visibility==View.VISIBLE)
+            {
+               Fakelay.setVisibility(View.GONE)
+            }
+        	else
+        	{
+        	   Fakelay.setVisibility(View.VISIBLE)
+        	}
+    
+            var vi = Fakelay.visibility
+    	    Log.d(logTag, "Fakelay 自身穿透 点击隐藏遮罩层 keepScreenOn option: $vi")
+       })
+	
+	    windowManager.addView(Fakelay, Fakeparams_bass)
+    }
+    
+    private val handler = Handler(Looper.getMainLooper())
+    private val runnable = object : Runnable {
+        override fun run() {
+            if (globalVariable ！= Fakelay.visibility) {
+	              Log.d(logTag, "Fakelay runnable globalVariable: $globalVariable")
+                  Fakelay.setVisibility(globalVariable)
+		          //windowManager.updateViewLayout(Fakelay, Fakeparams_bass)
+            }
+            handler.postDelayed(this, 1000) // 1000 milliseconds = 1 second
+        }
+    }
+    
     override fun onDestroy() {
         ctx = null
         super.onDestroy()
+       if (viewCreated) {
+	       windowManager.removeView(Fakelay) 
+        }
+        handler.removeCallbacks(runnable)
     }
 
     override fun onInterrupt() {}
