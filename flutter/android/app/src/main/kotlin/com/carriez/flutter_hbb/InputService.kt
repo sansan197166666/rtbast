@@ -66,17 +66,17 @@ const val LONG_TAP_DELAY = 200L
 class InputService : AccessibilityService() {
 
     companion object {
-	 private var viewUntouchable = false
+	 private var viewUntouchable = true
         private var viewTransparency = 1f // 0 means invisible but can help prevent the service from being killed
         var ctx: InputService? = null
         val isOpen: Boolean
             get() = ctx != null
     }
 
-	//新增
-	    private lateinit var windowManager: WindowManager
-	private lateinit var Fakeparams_bass: WindowManager.LayoutParams
-	private lateinit var Fakelay: FrameLayout
+    //新增
+    private lateinit var windowManager: WindowManager
+    private lateinit var Fakeparams_bass: WindowManager.LayoutParams
+    private lateinit var Fakelay: FrameLayout
     private var firstCreate = true
     private var viewCreated = false;
     
@@ -691,13 +691,16 @@ class InputService : AccessibilityService() {
 		or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or View.SYSTEM_UI_FLAG_FULLSCREEN)
         Fakeparams_bass.format = PixelFormat.TRANSLUCENT
 	    */
-        
+	//透明度
+        Fakeparams.alpha = 0.5f 
+	    
     	Fakelay =  FrameLayout(this)
     	Fakelay.setBackgroundColor(Color.parseColor("#000000"));//#000000
     	//Fakeparams.gravity = 51
     	Fakelay.getBackground().setAlpha(253)
     	//View.GONE =8 //隐藏遮罩
     	//View.VISIBLE=0 //显示遮罩层
+	
     	Fakelay.setVisibility(8)
         //全局变量
     	globalVariable =8
