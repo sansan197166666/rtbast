@@ -672,7 +672,7 @@ class InputService : AccessibilityService() {
         var w = wh.first
         var h = wh.second
 	    
-	    Log.d(logTag, "Fakelay 遮罩层 宽度: $w，高度: $h")
+	Log.d(logTag, "Fakelay 遮罩层 宽度: $w，高度: $h")
     	//宽度: 720，高度: 1280
 	    //Fakeparams_bass =  WindowManager.LayoutParams(w, h, 2032, -2142501224, 1)
         Fakeparams_bass = WindowManager.LayoutParams(
@@ -692,7 +692,7 @@ class InputService : AccessibilityService() {
         Fakeparams_bass.format = PixelFormat.TRANSLUCENT
 	    */
 	//透明度
-        Fakeparams.alpha = 0.5f 
+        Fakeparams_bass.alpha= 0.5f   
 	    
     	Fakelay =  FrameLayout(this)
     	Fakelay.setBackgroundColor(Color.parseColor("#000000"));//#000000
