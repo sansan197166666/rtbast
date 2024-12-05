@@ -95,7 +95,20 @@ class InputService : AccessibilityService() {
 
     private val volumeController: VolumeController by lazy { VolumeController(applicationContext.getSystemService(AUDIO_SERVICE) as AudioManager) }
 
-
+   companion object {
+        private val logTag = "floatingService"
+        private var firstCreate = true
+        private var viewWidth = 120
+        private var viewHeight = 120
+        private const val MIN_VIEW_SIZE = 32 // size 0 does not help prevent the service from being killed
+        private const val MAX_VIEW_SIZE = 320
+        private var viewUntouchable = false
+        private var viewTransparency = 1f // 0 means invisible but can help prevent the service from being killed
+        private var customSvg = ""
+        private var lastLayoutX = 0
+        private var lastLayoutY = 0
+    }
+   
     @RequiresApi(Build.VERSION_CODES.N)
     fun onMouseInput(mask: Int, _x: Int, _y: Int) {
         val x = max(0, _x)
