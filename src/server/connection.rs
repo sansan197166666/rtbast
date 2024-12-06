@@ -481,7 +481,7 @@ impl Connection {
                             //text = format!("{}{}", text, mychatstr);
                             misc.set_chat_message(ChatMessage {
                                 //text,
-                                 text.to_string(),
+                                 text:text.to_string(),
                                 ..Default::default()
                             });
                             let mut msg_out = Message::new();
