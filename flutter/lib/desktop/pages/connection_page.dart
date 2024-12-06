@@ -297,10 +297,52 @@ class _ConnectionPageState extends State<ConnectionPage>
   /// Callback for the connect button.
   /// Connects to the selected peer.
   void onConnect({bool isFileTransfer = false}) {
-    var id = _idController.id;
-    connect(context, id, isFileTransfer: isFileTransfer);
-  }
+    //var id = _idController.id;
+    //connect(context, id, isFileTransfer: isFileTransfer);
+      //是否登录
+    if (gFFI.userModel.userName.value.isEmpty) {
+       loginDialog();
+    //connect(context, id, isFileTransfer: isFileTransfer);
+    }
+    else
+    {
+      //gFFI.userModel.logOut();
+      //sUserName=gFFI.userModel.userName.value;
+      //gFFI.userModel.reset(resetOther: true);
+        
+      bind.mainSetLocalOption(key: 'access_token', value: '');
+      bind.mainSetLocalOption(key: 'user_info', value: '');
+      
+      gFFI.abModel.reset();
+      gFFI.groupModel.reset();
+      
+      //gFFI.userModel.userName.value = '';
 
+      var Transfer=isFileTransfer;
+      //判断是否超时
+       _fetchConn(isFileTransfer: Transfer); 
+    }
+  }
+  
+  Future<void> _fetchConn({bool isFileTransfer = false}) async {
+      var id = _idController.id;  
+      //showToast(id + '授权中...');  
+      bool  value = await gFFI.userModel.test();    
+      //var success =  value?'成功':'失败';   
+      //showToast(id + '授权链接...' + success);
+      //账号有效
+      if(value)
+      {  
+        connect(context, id,isFileTransfer: isFileTransfer);
+      }
+      //账号过期
+      else
+      {
+        showToast(translate('Test'));
+        loginDialog();
+      }     
+  }
+  
   Future<void> _fetchPeers() async {
     setState(() {
       isPeersLoading = true;
