@@ -16,6 +16,7 @@ bool refreshingUser = false;
 
 class UserModel {
   final RxString userName = ''.obs;
+  final RxString userLogin = ''.obs;
   final RxBool isAdmin = false.obs;
   final RxString networkError = ''.obs;
   bool get isLogin => userName.isNotEmpty;
@@ -111,9 +112,54 @@ class UserModel {
     }
     userName.value = '';
   }
-
+  
+ Future<bool> test() async {
+    final url = await bind.mainGetApiServer();
+    final body = {
+      'id': await bind.mainGetMyId(),
+      'uuid': await bind.mainGetUuid(),
+      'username': gFFI.userModel.userName.value
+    };
+  
+    final http.Response response;
+    try {
+      response = await http.post(Uri.parse('$url/api/currentUser'),
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: json.encode(body));
+    } catch (e) {
+      return false;
+    }
+    final status = response.statusCode;
+    if (status == 401 || status == 400) {
+      //reset(resetOther: status == 401);
+      return false;
+    }
+    final data = json.decode(utf8.decode(response.bodyBytes));
+    final error = data['error'];
+    if (error != null) {
+      return false;
+    }
+    //把日期写到名字里 显示在前台
+    if(data['name']!=null && gFFI.userModel.userName.value==data['name'])
+    {   
+      final expdate = data['expdate'];
+      if (expdate != null) {
+         gFFI.userModel.userLogin.value = "用户名:" + data['name'] + ",有效期:" + data['expdate'];
+         //gFFI.userModel.userName.value = data['name'] + "_有效期:" + data['expdate'];
+      }
+      return true;
+    }
+    else
+    {
+       return false;
+    }
+  }
+  
   _parseAndUpdateUser(UserPayload user) {
     userName.value = user.name;
+    userLogin.value = user.name;
     isAdmin.value = user.isAdmin;
     bind.mainSetLocalOption(key: 'user_info', value: jsonEncode(user));
   }
