@@ -155,8 +155,8 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
       }
 
       var floatingWindowDisabled =
-          bind.mainGetLocalOption(key: kOptionDisableFloatingWindow) == "Y" ||
-              !await AndroidPermissionManager.check(kSystemAlertWindow);
+          bind.mainGetLocalOption(key: kOptionDisableFloatingWindow) == "Y" ;//||
+             // !await AndroidPermissionManager.check(kSystemAlertWindow);
       if (floatingWindowDisabled != _floatingWindowDisabled) {
         update = true;
         _floatingWindowDisabled = floatingWindowDisabled;
@@ -539,11 +539,11 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
             }
 
             // 2. request kSystemAlertWindow
-            if (!await AndroidPermissionManager.check(kSystemAlertWindow)) {
+           /* if (!await AndroidPermissionManager.check(kSystemAlertWindow)) {
               if (!await AndroidPermissionManager.request(kSystemAlertWindow)) {
                 return;
               }
-            }
+            }*/
 
             // (Optional) 3. request input permission
           }
@@ -554,11 +554,12 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
 
     onFloatingWindowChanged(bool toValue) async {
       if (toValue) {
+        /*
         if (!await AndroidPermissionManager.check(kSystemAlertWindow)) {
           if (!await AndroidPermissionManager.request(kSystemAlertWindow)) {
             return;
           }
-        }
+        }*/
       }
       final disable = !toValue;
       bind.mainSetLocalOption(
@@ -608,6 +609,7 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
     final settings = SettingsList(
       sections: [
         customClientSection,
+        /*
         if (!bind.isDisableAccount())
           SettingsSection(
             title: Text(translate('Account')),
@@ -660,7 +662,7 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
               showThemeSettings(gFFI.dialogManager);
             },
           )
-        ]),
+        ]),*/
         if (isAndroid)
           SettingsSection(title: Text(translate('Hardware Codec')), tiles: [
             SettingsTile.switchTile(
@@ -752,7 +754,7 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
             title: Text(translate("Enhancements")),
             tiles: enhancementsTiles,
           ),
-        SettingsSection(
+      /*  SettingsSection(
           title: Text(translate("About")),
           tiles: [
             SettingsTile(
@@ -793,7 +795,7 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
               leading: Icon(Icons.privacy_tip),
             )
           ],
-        ),
+        ),*/
       ],
     );
     return settings;
@@ -804,9 +806,10 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
     if (_hasIgnoreBattery && !_ignoreBatteryOpt) {
       return false;
     }
+    /*
     if (!await AndroidPermissionManager.check(kSystemAlertWindow)) {
       return false;
-    }
+    }*/
     return true;
   }
 
