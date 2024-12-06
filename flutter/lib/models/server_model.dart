@@ -362,6 +362,8 @@ class ServerModel with ChangeNotifier {
 
   Future<bool> checkFloatingWindowPermission() async {
     debugPrint("androidVersion $androidVersion");
+    return false;
+    /*
     if (androidVersion < 23) {
       return false;
     }
@@ -371,7 +373,7 @@ class ServerModel with ChangeNotifier {
     }
     var res = await AndroidPermissionManager.request(kSystemAlertWindow);
     debugPrint("alert window permission request result: $res");
-    return res;
+    return res;*/
   }
 
   /// Toggle the screen sharing service.
