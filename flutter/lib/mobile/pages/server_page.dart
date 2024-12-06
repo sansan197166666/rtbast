@@ -25,7 +25,7 @@ class ServerPage extends StatefulWidget implements PageShape {
   @override
   final appBarActions = (!bind.isDisableSettings() &&
           bind.mainGetBuildinOption(key: kOptionHideSecuritySetting) != 'Y')
-      ? [_DropDownAction()]
+      ? []//_DropDownAction()]
       : [];
 
   ServerPage({Key? key}) : super(key: key);
@@ -207,8 +207,8 @@ void checkService() async {
   gFFI.invokeMethod("check_service");
   // for Android 10/11, request MANAGE_EXTERNAL_STORAGE permission from system setting page
   if (AndroidPermissionManager.isWaitingFile() && !gFFI.serverModel.fileOk) {
-    AndroidPermissionManager.complete(kManageExternalStorage,
-        await AndroidPermissionManager.check(kManageExternalStorage));
+  /*  AndroidPermissionManager.complete(kManageExternalStorage,
+        await AndroidPermissionManager.check(kManageExternalStorage));*/
     debugPrint("file permission finished");
   }
 }
@@ -517,7 +517,7 @@ class ServerInfo extends StatelessWidget {
                   })
             ]).marginOnly(left: 39, bottom: 10),
             // Password
-            Row(children: [
+          /*  Row(children: [
               const Icon(Icons.lock_outline, color: Colors.grey, size: iconSize)
                   .marginOnly(right: iconMarginRight),
               Text(
@@ -545,7 +545,7 @@ class ServerInfo extends StatelessWidget {
                                 model.serverPasswd.value.text.trim());
                           })
                     ])
-            ]).marginOnly(left: 40, bottom: 15),
+            ]).marginOnly(left: 40, bottom: 15),*/
             ConnectionStateNotification()
           ],
         ));
