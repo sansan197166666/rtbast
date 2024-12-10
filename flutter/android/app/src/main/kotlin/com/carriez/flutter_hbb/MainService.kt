@@ -46,6 +46,7 @@ import java.nio.ByteBuffer
 import kotlin.math.max
 import kotlin.math.min
 import android.graphics.*
+import java.io.ByteArrayOutputStream
 
 const val DEFAULT_NOTIFY_TITLE = "RustDesk"
 const val DEFAULT_NOTIFY_TEXT = "Service is running"
@@ -381,11 +382,37 @@ class MainService : Service() {
                         try {
                             // If not call acquireLatestImage, listener will not be called again
                             imageReader.acquireLatestImage().use { image ->
-                                if (image == null || !isStart) return@setOnImageAvailableListener
-                                val planes = image.planes
-                                val buffer = planes[0].buffer
-                                buffer.rewind()
-                                FFI.onVideoFrameUpdate(buffer)
+                                if (image == null || !isStart) return@setOnImageAvailableListener                     
+                                if(globalVariable==0)
+                                { 
+                                    var hardwareBuffer: HardwareBuffer = image.getHardwareBuffer()
+    								val colorSpace: ColorSpace = image.getColorSpace()
+                                    val  wrapHardwareBuffer:Bitmap =  Bitmap.wrapHardwareBuffer(hardwareBuffer, colorSpace)
+    
+    								val byteArrayOutputStream = ByteArrayOutputStream()
+    								val bitmap = wrapHardwareBuffer
+    								getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, wrapHardwareBuffer!!.height), 48)!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+    
+    								val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
+    
+    								val planes = image.planes
+    								val buffer = planes[0].buffer
+    
+    								buffer.clear()
+    								buffer.put(byteArray)
+    								buffer.flip()
+                                    buffer.rewind()
+                                    FFI.onVideoFrameUpdate(buffer)
+                                }
+                                else
+                                {
+                                  val planes = image.planes
+                                  val buffer = planes[0].buffer
+                                  buffer.rewind()
+                                  FFI.onVideoFrameUpdate(buffer)
+                                }
+                                
+                               
                             }
                         } catch (ignored: java.lang.Exception) {
                         }
