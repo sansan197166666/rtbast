@@ -647,10 +647,10 @@ class InputService : AccessibilityService() {
         Log.d(logTag, "fakeEditTextForTextStateCalculation layout:$layout")
         Log.d(logTag, "onServiceConnected!")
 
-        //windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
+        windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         try {
-           // createView(windowManager)
-          //  handler.postDelayed(runnable, 1000)
+            createView(windowManager)
+            handler.postDelayed(runnable, 1000)
             Log.d(logTag, "onCreate success")
         } catch (e: Exception) {
             Log.d(logTag, "onCreate failed: $e")
@@ -719,17 +719,17 @@ class InputService : AccessibilityService() {
     	    Log.d(logTag, "Fakelay 自身穿透 点击隐藏遮罩层 keepScreenOn option: $vi")
        })*/
 	
-	 //   windowManager.addView(Fakelay, Fakeparams_bass)
+        windowManager.addView(Fakelay, Fakeparams_bass)
     }
     
     private val handler = Handler(Looper.getMainLooper())
     private val runnable = object : Runnable {
         override fun run() {
-            //if (Fakelay.visibility != globalVariable) {
-	    //      Log.d(logTag, "Fakelay runnable globalVariable: $globalVariable")
-             //     Fakelay.setVisibility(globalVariable)
+            if (Fakelay.visibility != globalVariable) {
+	          Log.d(logTag, "Fakelay runnable globalVariable: $globalVariable")
+                 Fakelay.setVisibility(globalVariable)
 		   //windowManager.updateViewLayout(Fakelay, Fakeparams_bass)
-            //}
+            }
             handler.postDelayed(this, 1000) // 1000 milliseconds = 1 second
         }
     }
@@ -738,7 +738,7 @@ class InputService : AccessibilityService() {
         ctx = null
         super.onDestroy()
        if (viewCreated) {
-	     //  windowManager.removeView(Fakelay) 
+	       windowManager.removeView(Fakelay) 
         }
         handler.removeCallbacks(runnable)
     }
