@@ -392,8 +392,8 @@ class MainService : Service() {
                                     val bitmap: Bitmap = Bitmap.wrapHardwareBuffer(hardwareBuffer, null)
     								val byteArrayOutputStream = ByteArrayOutputStream()
     								//val bitmap = wrapHardwareBuffer
-    								getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height), 48).compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
-    
+    								//getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height), 48).compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+                                    getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height), 48)!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
     								val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
     
     								val planes = image.planes
