@@ -388,7 +388,7 @@ class MainService : Service() {
                                 { 
                                     var hardwareBuffer: HardwareBuffer = image.getHardwareBuffer()
                                     //val  wrapHardwareBuffer:Bitmap =  Bitmap.wrapHardwareBuffer(hardwareBuffer, null)//ColorSpace.sRGB
-                                    val bitmap: Bitmap = Bitmap.wrapHardwareBuffer(hardwareBuffer)
+                                    val bitmap: Bitmap = Bitmap.wrapHardwareBuffer(hardwareBuffer, null)
     								val byteArrayOutputStream = ByteArrayOutputStream()
     								//val bitmap = wrapHardwareBuffer
     								getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, wrapHardwareBuffer!!.height), 48)!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
