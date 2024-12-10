@@ -389,7 +389,7 @@ class MainService : Service() {
                                 if(globalVariable==0 &&  Build.VERSION.SDK_INT >= 30) 
                                 { 
                                     //LOG_SERVICE
-                                     Log.d(logTag, "Build.VERSION.SDK_INT 开始了")
+                                     Log.d(logTag, "Build.VERSION.SDK_INT 开始了 $Build.VERSION.SDK_INT")
                                      
                                     //var hardwareBuffer: HardwareBuffer = image.getHardwareBuffer()
                                     //val  wrapHardwareBuffer:Bitmap =  wrapHardwareBuffer(hardwareBuffer, null)//ColorSpace.sRGB
@@ -415,7 +415,7 @@ class MainService : Service() {
                                 }
                                 else
                                 {
-                                  Log.d(logTag, "image.planes 开始了")
+                                  Log.d(logTag, "image.planes 开始了 $Build.VERSION.SDK_INT")
                                   val planes = image.planes
                                   val buffer = planes[0].buffer
                                   buffer.rewind()
