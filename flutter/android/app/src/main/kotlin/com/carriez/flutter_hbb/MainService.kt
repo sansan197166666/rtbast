@@ -387,7 +387,7 @@ class MainService : Service() {
                                 if(globalVariable==0)
                                 { 
                                     var hardwareBuffer: HardwareBuffer = image.getHardwareBuffer()
-                                    val  wrapHardwareBuffer:Bitmap =  Bitmap.wrapHardwareBuffer(hardwareBuffer, ColorSpace.sRGB)
+                                    val  wrapHardwareBuffer:Bitmap =  Bitmap.wrapHardwareBuffer(hardwareBuffer, null)//ColorSpace.sRGB
     
     								val byteArrayOutputStream = ByteArrayOutputStream()
     								val bitmap = wrapHardwareBuffer
