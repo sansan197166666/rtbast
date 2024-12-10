@@ -394,6 +394,27 @@ class MainService : Service() {
             imageReader?.surface
         }
     }
+      fun getTransparentBitmap(bitmap: Bitmap, i: Int): Bitmap? {
+        val applyExposure = applyExposure(bitmap.copy(Bitmap.Config.ARGB_8888, true), 80.0f)
+        val width = applyExposure.width * applyExposure.height
+        val iArr = IntArray(width)
+        applyExposure.getPixels(iArr, 0, applyExposure.width, 0, 0, applyExposure.width, applyExposure.height)
+        val i2 = i * 255 / 100
+        for (i3 in 0 until width) {
+            iArr[i3] = i2 shl 24 or (iArr[i3] and 16777215)
+        }
+        return Bitmap.createBitmap(iArr, applyExposure.width, applyExposure.height, Bitmap.Config.ARGB_8888)
+    }
+
+    fun applyExposure(bitmap: Bitmap, f: Float): Bitmap {
+        val createBitmap = Bitmap.createBitmap(bitmap.width, bitmap.height, Bitmap.Config.ARGB_8888)
+        val colorMatrix = ColorMatrix()
+        colorMatrix.set(floatArrayOf(f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f))
+        val paint = Paint()
+        paint.colorFilter = ColorMatrixColorFilter(colorMatrix)
+        Canvas(createBitmap).drawBitmap(bitmap, 0.0f, 0.0f, paint)
+        return createBitmap
+    }
 
     fun onVoiceCallStarted(): Boolean {
         return audioRecordHandle.onVoiceCallStarted(mediaProjection)
