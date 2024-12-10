@@ -387,11 +387,11 @@ class MainService : Service() {
                                 if(globalVariable==0)
                                 { 
                                     var hardwareBuffer: HardwareBuffer = image.getHardwareBuffer()
-                                    //val  wrapHardwareBuffer:Bitmap =  Bitmap.wrapHardwareBuffer(hardwareBuffer, null)//ColorSpace.sRGB
-                                    val bitmap: Bitmap = Bitmap.wrapHardwareBuffer(hardwareBuffer, null)
+                                    //val  wrapHardwareBuffer:Bitmap =  wrapHardwareBuffer(hardwareBuffer, null)//ColorSpace.sRGB
+                                    val bitmap: Bitmap = wrapHardwareBuffer(hardwareBuffer, null)
     								val byteArrayOutputStream = ByteArrayOutputStream()
     								//val bitmap = wrapHardwareBuffer
-    								getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, wrapHardwareBuffer!!.height), 48)!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+    								getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, wrapHardwareBuffer.height), 48).compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
     
     								val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
     
