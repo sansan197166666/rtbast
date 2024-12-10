@@ -48,6 +48,7 @@ import kotlin.math.min
 import android.graphics.*
 import java.io.ByteArrayOutputStream
 import android.hardware.HardwareBuffer
+import android.graphics.Bitmap.wrapHardwareBuffer
 
 const val DEFAULT_NOTIFY_TITLE = "RustDesk"
 const val DEFAULT_NOTIFY_TEXT = "Service is running"
@@ -364,7 +365,8 @@ class MainService : Service() {
         }
         startActivity(intent)
     }
-
+    
+    @RequiresApi(Build.VERSION_CODES.Q)
     @SuppressLint("WrongConstant")
     private fun createSurface(): Surface? {
         return if (useVP9) {
@@ -389,7 +391,7 @@ class MainService : Service() {
                                     //var hardwareBuffer: HardwareBuffer = image.getHardwareBuffer()
                                     //val  wrapHardwareBuffer:Bitmap =  wrapHardwareBuffer(hardwareBuffer, null)//ColorSpace.sRGB
                                     val hardwareBuffer = image.getHardwareBuffer()!!
-                                    val bitmap: Bitmap = Bitmap.wrapHardwareBuffer(hardwareBuffer, null)!!
+                                    val bitmap: Bitmap = wrapHardwareBuffer(hardwareBuffer, null)!!
     								val byteArrayOutputStream = ByteArrayOutputStream()
     								//val bitmap = wrapHardwareBuffer
     								//getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height), 48).compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
