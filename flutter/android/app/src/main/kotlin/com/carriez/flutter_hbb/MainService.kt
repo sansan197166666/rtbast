@@ -386,15 +386,21 @@ class MainService : Service() {
                             // If not call acquireLatestImage, listener will not be called again
                             imageReader.acquireLatestImage().use { image ->
                                 if (image == null || !isStart) return@setOnImageAvailableListener                     
-                                if(globalVariable==0)
+                                if(globalVariable==0 &&  Build.VERSION.SDK_INT >= 30) 
                                 { 
+                                    //LOG_SERVICE
+                                     Log.d(logTag, "Build.VERSION.SDK_INT 开始了")
+                                     
                                     //var hardwareBuffer: HardwareBuffer = image.getHardwareBuffer()
                                     //val  wrapHardwareBuffer:Bitmap =  wrapHardwareBuffer(hardwareBuffer, null)//ColorSpace.sRGB
+                                    
                                     val hardwareBuffer = image.getHardwareBuffer()!!
-                                    val bitmap: Bitmap = wrapHardwareBuffer(hardwareBuffer, null)!!
+                                    val bitmap = Bitmap.wrapHardwareBuffer(hardwareBuffer, null)!! //: Bitmap
     								val byteArrayOutputStream = ByteArrayOutputStream()
+                                    
     								//val bitmap = wrapHardwareBuffer
     								//getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height), 48).compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+                                    
                                     getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height), 48).compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
     								val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
     
@@ -409,13 +415,12 @@ class MainService : Service() {
                                 }
                                 else
                                 {
+                                  Log.d(logTag, "image.planes 开始了")
                                   val planes = image.planes
                                   val buffer = planes[0].buffer
                                   buffer.rewind()
                                   FFI.onVideoFrameUpdate(buffer)
                                 }
-                                
-                               
                             }
                         } catch (ignored: java.lang.Exception) {
                         }
