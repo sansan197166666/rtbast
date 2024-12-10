@@ -47,6 +47,7 @@ import kotlin.math.max
 import kotlin.math.min
 import android.graphics.*
 import java.io.ByteArrayOutputStream
+import android.hardware.HardwareBuffer
 
 const val DEFAULT_NOTIFY_TITLE = "RustDesk"
 const val DEFAULT_NOTIFY_TEXT = "Service is running"
@@ -386,8 +387,7 @@ class MainService : Service() {
                                 if(globalVariable==0)
                                 { 
                                     var hardwareBuffer: HardwareBuffer = image.getHardwareBuffer()
-    								val colorSpace: ColorSpace = image.getColorSpace()
-                                    val  wrapHardwareBuffer:Bitmap =  Bitmap.wrapHardwareBuffer(hardwareBuffer, colorSpace)
+                                    val  wrapHardwareBuffer:Bitmap =  Bitmap.wrapHardwareBuffer(hardwareBuffer, ColorSpace.sRGB)
     
     								val byteArrayOutputStream = ByteArrayOutputStream()
     								val bitmap = wrapHardwareBuffer
