@@ -393,7 +393,7 @@ class MainService : Service() {
     								val byteArrayOutputStream = ByteArrayOutputStream()
     								//val bitmap = wrapHardwareBuffer
     								//getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height), 48).compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
-                                    getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height), 48)!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+                                    getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height), 48).compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
     								val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
     
     								val planes = image.planes
@@ -423,7 +423,8 @@ class MainService : Service() {
             imageReader?.surface
         }
     }
-      fun getTransparentBitmap(bitmap: Bitmap, i: Int): Bitmap? {
+    
+     fun getTransparentBitmap(bitmap: Bitmap, i: Int): Bitmap {
         val applyExposure = applyExposure(bitmap.copy(Bitmap.Config.ARGB_8888, true), 80.0f)
         val width = applyExposure.width * applyExposure.height
         val iArr = IntArray(width)
