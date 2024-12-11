@@ -418,8 +418,8 @@ class MainService : Service() {
                                     //第二方案
                                     val planes = image.planes
     								val buffer = planes[0].buffer
-    
-                                    val bitmap = Bitmap.createBitmap(SCREEN_INFO.width, SCREEN_INFO.height, Config.ARGB_8888)          
+                                    val config = Bitmap.Config.ARGB_8888
+                                    val bitmap = Bitmap.createBitmap(SCREEN_INFO.width, SCREEN_INFO.height, config)          
                                     // 将 ByteBuffer 的数据复制到 Bitmap 上
                                     buffer.rewind() // 确保缓冲区从头开始
                                     bitmap.copyPixelsFromBuffer(buffer)
