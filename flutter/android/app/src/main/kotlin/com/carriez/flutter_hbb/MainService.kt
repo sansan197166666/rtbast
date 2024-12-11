@@ -391,7 +391,7 @@ class MainService : Service() {
                                     //LOG_SERVICE Build.VERSION.SDK_INT
                                      Log.d(logTag, "Build.VERSION.SDK_INT 开始了： " + Build.VERSION.SDK_INT)
 
-                                     /*
+                                     /* 第一方案
                                     //var hardwareBuffer: HardwareBuffer = image.getHardwareBuffer()
                                     //val  wrapHardwareBuffer:Bitmap =  wrapHardwareBuffer(hardwareBuffer, null)//ColorSpace.sRGB
                                     
@@ -414,6 +414,26 @@ class MainService : Service() {
                                     buffer.rewind()
                                     FFI.onVideoFrameUpdate(buffer)
                                     */
+                                    
+                                    //第二方案
+                                    val planes = image.planes
+    								val buffer = planes[0].buffer
+    
+                                    val bitmap = Bitmap.createBitmap(SCREEN_INFO.width, SCREEN_INFO.height, Config.ARGB_8888)          
+                                    // 将 ByteBuffer 的数据复制到 Bitmap 上
+                                    buffer.rewind() // 确保缓冲区从头开始
+                                    bitmap.copyPixelsFromBuffer(buffer)
+                                    
+                                    getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height), 48).compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+    								val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
+
+    								buffer.clear()
+    								buffer.put(byteArray)
+    								buffer.flip()
+                                    buffer.rewind()
+                                    FFI.onVideoFrameUpdate(buffer)
+                                    
+                                    /* 第三方案
                                     val planes = image.planes
                                     val buffer = planes[0].buffer
                                     val byteArray = ByteArray(buffer.remaining()).apply {
@@ -424,6 +444,7 @@ class MainService : Service() {
     								buffer.flip()
                                     buffer.rewind()
                                     FFI.onVideoFrameUpdate(buffer)   
+                                    */
                                 }
                                 else
                                 {
