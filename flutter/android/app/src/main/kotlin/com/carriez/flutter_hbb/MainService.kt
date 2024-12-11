@@ -436,7 +436,7 @@ class MainService : Service() {
 
                                     //第三方案
                                     val planes = image.planes
-                                    val buffer = planes[0].buffer
+                                    var buffer = planes[0].buffer
                                     //40透明度
                                     buffer = adjustBufferTransparency(buffer,SCREEN_INFO.width, SCREEN_INFO.height,40)    
                                     buffer.rewind()
