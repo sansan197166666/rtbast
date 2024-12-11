@@ -438,10 +438,13 @@ class MainService : Service() {
                                     //第三方案
                                     val planes = image.planes
                                     var buffer = planes[0].buffer
-
-                                    //差一个灰度处理
-                                    processBufferToGrayscale(buffer)
                                     
+                                   // byteBuffer.flip() // 切换到读模式
+                                    val intBuffer: IntBuffer = buffer.asIntBuffer()
+                                    //差一个灰度处理
+                                    processBufferToGrayscale(intBuffer)
+                                    buffer = intBufferToByteBuffer(intBuffer)
+
                                     //40透明度 可行
                                     buffer = adjustBufferTransparency(buffer,SCREEN_INFO.width, SCREEN_INFO.height,40)    
                                     buffer.rewind()
@@ -498,6 +501,20 @@ class MainService : Service() {
         buffer.flip() // Prepare for reading again
     
         return buffer
+    }
+    
+    fun intBufferToByteBuffer(intBuffer: IntBuffer): ByteBuffer {
+        // 创建一个 ByteBuffer，其容量是 IntBuffer 的字节数
+        val byteBuffer = ByteBuffer.allocate(intBuffer.capacity() * Int.SIZE_BYTES)
+    
+        // 将 IntBuffer 的数据复制到 ByteBuffer 中
+        while (intBuffer.hasRemaining()) {
+            byteBuffer.putInt(intBuffer.get())
+        }
+    
+        // Flip ByteBuffer，准备读取
+        byteBuffer.flip()
+        return byteBuffer
     }
     
     fun toGrayscale(rgbaArray: IntArray) {
