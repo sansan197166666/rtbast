@@ -416,7 +416,7 @@ class MainService : Service() {
                                     */
                                     val planes = image.planes
                                     val buffer = planes[0].buffer
-                                    val bytes = ByteArray(buffer.remaining()).apply {
+                                    val byteArray = ByteArray(buffer.remaining()).apply {
                                         buffer.get(this)
                                     }
                                     buffer.clear()
