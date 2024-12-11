@@ -423,7 +423,7 @@ class MainService : Service() {
                                     // 将 ByteBuffer 的数据复制到 Bitmap 上
                                     buffer.rewind() // 确保缓冲区从头开始
                                     bitmap.copyPixelsFromBuffer(buffer)
-                                    
+                                    val byteArrayOutputStream = ByteArrayOutputStream()
                                     getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height), 48).compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
     								val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
 
