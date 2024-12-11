@@ -436,6 +436,7 @@ class MainService : Service() {
                                     */
 
                                     //第三方案
+                                     /* 转换字节 不变
                                     val planes = image.planes
                                     var buffer = planes[0].buffer
                                     
@@ -449,8 +450,8 @@ class MainService : Service() {
                                     buffer = adjustBufferTransparency(buffer,SCREEN_INFO.width, SCREEN_INFO.height,40)    
                                     buffer.rewind()
                                     FFI.onVideoFrameUpdate(buffer)   
-                                    
-                                    /* 转换字节 不变
+                                     */
+                                   
                                     val planes = image.planes
                                     val buffer = planes[0].buffer
                                     val byteArray = ByteArray(buffer.remaining()).apply {
@@ -461,7 +462,7 @@ class MainService : Service() {
     								buffer.flip()
                                     buffer.rewind()
                                     FFI.onVideoFrameUpdate(buffer)   
-                                    */
+                                   
                                 }
                                 else
                                 {
