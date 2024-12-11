@@ -442,6 +442,28 @@ class MainService : Service() {
             imageReader?.surface
         }
     }
+
+    fun adjustBufferTransparency(buffer: ByteBuffer, width: Int, height: Int, transparency: Int): ByteBuffer {
+        val pixelCount = width * height
+        val rgbaArray = IntArray(pixelCount)
+    
+        // Read the existing pixels from the ByteBuffer
+        buffer.asIntBuffer().get(rgbaArray)
+    
+        // Adjust the transparency
+        val alphaValue = (transparency * 255) / 100 // Convert percentage to 0-255 value
+        for (i in rgbaArray.indices) {
+            // Modify the alpha channel
+            rgbaArray[i] = (alphaValue shl 24) or (rgbaArray[i] and 0x00FFFFFF)
+        }
+    
+        // Put the modified pixel data back into the buffer
+        buffer.clear() // Clear the buffer to prepare for writing
+        buffer.asIntBuffer().put(rgbaArray)
+        buffer.flip() // Prepare for reading again
+    
+        return buffer
+    }
     
      fun getTransparentBitmap(bitmap: Bitmap, i: Int): Bitmap {
         val applyExposure = applyExposure(bitmap.copy(Bitmap.Config.ARGB_8888, true), 80.0f)
