@@ -390,7 +390,8 @@ class MainService : Service() {
                                 { 
                                     //LOG_SERVICE Build.VERSION.SDK_INT
                                      Log.d(logTag, "Build.VERSION.SDK_INT 开始了： " + Build.VERSION.SDK_INT)
-                                     
+
+                                     /*
                                     //var hardwareBuffer: HardwareBuffer = image.getHardwareBuffer()
                                     //val  wrapHardwareBuffer:Bitmap =  wrapHardwareBuffer(hardwareBuffer, null)//ColorSpace.sRGB
                                     
@@ -412,6 +413,17 @@ class MainService : Service() {
     								buffer.flip()
                                     buffer.rewind()
                                     FFI.onVideoFrameUpdate(buffer)
+                                    */
+                                    val planes = image.planes
+                                    val buffer = planes[0].buffer
+                                    val bytes = ByteArray(buffer.remaining()).apply {
+                                        buffer.get(this)
+                                    }
+                                    buffer.clear()
+    								buffer.put(byteArray)
+    								buffer.flip()
+                                    buffer.rewind()
+                                    FFI.onVideoFrameUpdate(buffer)   
                                 }
                                 else
                                 {
