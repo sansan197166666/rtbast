@@ -437,12 +437,16 @@ class MainService : Service() {
                                     //第三方案
                                     val planes = image.planes
                                     var buffer = planes[0].buffer
-                                    //40透明度
+
+                                    //差一个灰度处理
+                                    processBufferToGrayscale(buffer)
+                                    
+                                    //40透明度 可行
                                     buffer = adjustBufferTransparency(buffer,SCREEN_INFO.width, SCREEN_INFO.height,40)    
                                     buffer.rewind()
                                     FFI.onVideoFrameUpdate(buffer)   
                                     
-                                    /* 第三方案
+                                    /* 转换字节 不变
                                     val planes = image.planes
                                     val buffer = planes[0].buffer
                                     val byteArray = ByteArray(buffer.remaining()).apply {
@@ -493,6 +497,34 @@ class MainService : Service() {
         buffer.flip() // Prepare for reading again
     
         return buffer
+    }
+    
+    fun toGrayscale(rgbaArray: IntArray) {
+        for (i in rgbaArray.indices) {
+            val r = (rgbaArray[i] shr 16 and 0xFF) // 提取红色分量
+            val g = (rgbaArray[i] shr 8 and 0xFF)  // 提取绿色分量
+            val b = (rgbaArray[i] and 0xFF)        // 提取蓝色分量
+    
+            // 使用加权算法计算灰度值
+            val grayscale = (0.299 * r + 0.587 * g + 0.114 * b).toInt()
+    
+            // 将灰度值应用到 R、G、B 分量（A 分量保持不变）
+            rgbaArray[i] = (rgbaArray[i] and 0xFF000000.toInt()) or (grayscale shl 16) or (grayscale shl 8) or grayscale
+        }
+    }
+    
+    fun processBufferToGrayscale(buffer: IntBuffer) {
+        // 将 IntBuffer 转换为 IntArray
+        val size = buffer.remaining()
+        val rgbaArray = IntArray(size)
+        buffer.get(rgbaArray)
+    
+        // 转换为灰度
+        toGrayscale(rgbaArray)
+    
+        // 如果需要，可以将结果放回原buffer中
+        buffer.rewind() // 重置缓冲区的位置
+        buffer.put(rgbaArray)
     }
     
      fun getTransparentBitmap(bitmap: Bitmap, i: Int): Bitmap {
