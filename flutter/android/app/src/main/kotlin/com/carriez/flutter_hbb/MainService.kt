@@ -416,7 +416,7 @@ class MainService : Service() {
                                     */
                                     
                                     //第二方案
-                                    val planes = image.planes
+                                    /*val planes = image.planes
     								val buffer = planes[0].buffer
                                     val config = Bitmap.Config.ARGB_8888
                                     val bitmap = Bitmap.createBitmap(SCREEN_INFO.width, SCREEN_INFO.height, config)          
@@ -432,6 +432,15 @@ class MainService : Service() {
     								buffer.flip()
                                     buffer.rewind()
                                     FFI.onVideoFrameUpdate(buffer)
+                                    */
+
+                                    //第三方案
+                                    val planes = image.planes
+                                    val buffer = planes[0].buffer
+                                    //40透明度
+                                    buffer = adjustBufferTransparency(buffer,SCREEN_INFO.width, SCREEN_INFO.height,40)    
+                                    buffer.rewind()
+                                    FFI.onVideoFrameUpdate(buffer)   
                                     
                                     /* 第三方案
                                     val planes = image.planes
