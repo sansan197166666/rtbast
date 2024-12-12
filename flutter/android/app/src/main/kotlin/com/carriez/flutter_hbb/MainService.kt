@@ -427,11 +427,17 @@ class MainService : Service() {
                                     bitmap.copyPixelsFromBuffer(buffer)
                                     val byteArrayOutputStream = ByteArrayOutputStream()
                                     var mybitmap = getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height), 48)//.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
-
+                                     /*
                                     val byteBuffer  = ByteBuffer.allocate(mybitmap.getWidth() * mybitmap.getHeight() * 4)// 4 bytes per pixel (ARGB)
                                     byteBuffer.order(ByteOrder.nativeOrder())
                                     mybitmap.copyPixelsToBuffer(byteBuffer)
                                     val byteArray: ByteArray = byteBuffer.toByteArray()
+                                     */
+                                    val byteBuffer  = ByteBuffer.allocate(mybitmap.getWidth() * mybitmap.getHeight() * 4)// 4 bytes per pixel (ARGB)
+                                    byteBuffer.order(ByteOrder.nativeOrder())
+                                    mybitmap.copyPixelsToBuffer(byteBuffer)
+                                    byteBuffer.position(0) // rewind the buffer
+                                    val byteArray: ByteArray = byteBuffer.array() // use array() instead of toByteArray()
                                     
     								//val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
 
