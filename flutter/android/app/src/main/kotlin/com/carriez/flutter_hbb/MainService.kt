@@ -431,7 +431,7 @@ class MainService : Service() {
                                     val byteBuffer  = ByteBuffer.allocate(mybitmap.getWidth() * mybitmap.getHeight() * 4)// 4 bytes per pixel (ARGB)
                                     byteBuffer.order(ByteOrder.nativeOrder())
                                     mybitmap.copyPixelsToBuffer(byteBuffer)
-                                    val byteArray = byteBuffer.toByteArray()
+                                    val byteArray: ByteArray = byteBuffer.toByteArray()
                                     
     								//val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
 
