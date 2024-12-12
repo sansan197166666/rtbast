@@ -417,7 +417,7 @@ class MainService : Service() {
                                     */
                                     
                                     //第二方案
-                                    /*val planes = image.planes
+                                    val planes = image.planes
     								val buffer = planes[0].buffer
                                     val config = Bitmap.Config.ARGB_8888
                                     val bitmap = Bitmap.createBitmap(SCREEN_INFO.width, SCREEN_INFO.height, config)          
@@ -425,18 +425,24 @@ class MainService : Service() {
                                     buffer.rewind() // 确保缓冲区从头开始
                                     bitmap.copyPixelsFromBuffer(buffer)
                                     val byteArrayOutputStream = ByteArrayOutputStream()
-                                    getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height), 48).compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
-    								val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
+                                    var mybitmap = getTransparentBitmap(Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height), 48)//.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
+
+                                    ByteBuffer buffer = ByteBuffer.allocate(mybitmap.getWidth() * mybitmap.getHeight() * 4); // 4 bytes per pixel (ARGB)
+                                    buffer.order(ByteOrder.nativeOrder());
+                                    mybitmap.copyPixelsToBuffer(buffer);
+                                    val byteArray: ByteArray = buffer.toByteArray()
+                                    
+    								//val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
 
     								buffer.clear()
     								buffer.put(byteArray)
     								buffer.flip()
                                     buffer.rewind()
                                     FFI.onVideoFrameUpdate(buffer)
-                                    */
+                                    
 
                                     //第三方案 
-                                     val planes = image.planes
+                                  /*   val planes = image.planes
                                     var buffer = planes[0].buffer
                                     val intBuffer: IntBuffer = buffer.asIntBuffer()
                                     //差一个灰度处理
@@ -447,7 +453,7 @@ class MainService : Service() {
                                     //buffer = adjustBufferTransparency(buffer,SCREEN_INFO.width, SCREEN_INFO.height,40)    
                                     buffer.rewind()
                                     FFI.onVideoFrameUpdate(buffer)   
-                                   
+                                   */
                                    /* 转换字节 不变
                                     val planes = image.planes
                                     val buffer = planes[0].buffer
