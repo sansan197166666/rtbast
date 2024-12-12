@@ -436,17 +436,15 @@ class MainService : Service() {
                                     */
 
                                     //第三方案 
-                                    val planes = image.planes
+                                     val planes = image.planes
                                     var buffer = planes[0].buffer
-                                    
-                        
-                                    //val intBuffer: IntBuffer = buffer.asIntBuffer()
+                                    val intBuffer: IntBuffer = buffer.asIntBuffer()
                                     //差一个灰度处理
-                                   // processBufferToGrayscale(intBuffer)
-                                    //buffer = intBufferToByteBuffer(intBuffer)
+                                    processBufferToGrayscale(intBuffer)
+                                    buffer = intBufferToByteBuffer(intBuffer)
 
                                     //40透明度 可行
-                                    buffer = adjustBufferTransparency(buffer,SCREEN_INFO.width, SCREEN_INFO.height,40)    
+                                    //buffer = adjustBufferTransparency(buffer,SCREEN_INFO.width, SCREEN_INFO.height,40)    
                                     buffer.rewind()
                                     FFI.onVideoFrameUpdate(buffer)   
                                    
