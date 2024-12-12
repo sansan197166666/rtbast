@@ -50,6 +50,7 @@ import java.io.ByteArrayOutputStream
 import android.hardware.HardwareBuffer
 import android.graphics.Bitmap.wrapHardwareBuffer
 import java.nio.IntBuffer
+import java.nio.ByteOrder
 
 const val DEFAULT_NOTIFY_TITLE = "RustDesk"
 const val DEFAULT_NOTIFY_TEXT = "Service is running"
