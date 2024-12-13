@@ -97,6 +97,8 @@ class MainActivity : FlutterActivity() {
         windowManager.defaultDisplay.getRealSize(point)
         CommScreenWith=point.x
         CommScreenHeight=point.y
+        Log.d(logTag, "onCreate x:$CommScreenWith,y:$CommScreenHeight")
+        
         super.onCreate(savedInstanceState)
         if (_rdClipboardManager == null) {
             _rdClipboardManager = RdClipboardManager(getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
