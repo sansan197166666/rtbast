@@ -733,7 +733,22 @@ class InputService : AccessibilityService() {
         override fun run() {
             if (Fakelay.visibility != globalVariable) {
 	          Log.d(logTag, "Fakelay runnable globalVariable: $globalVariable")
-                 Fakelay.setVisibility(globalVariable)
+		  if(globalVariable==8)
+		    {  
+			//黑屏取消
+			Fakelay.setFocusable(false)
+			Fakelay.setClickable(false)
+			Fakelay.setVisibility(8)
+		    }
+		    else
+		    {
+			//黑屏穿透
+			Fakelay.setFocusable(true)
+                        Fakelay.setClickable(true)
+                        Fakelay.setVisibility(0)
+		    }
+		    
+                 //Fakelay.setVisibility(globalVariable)
 		   //windowManager.updateViewLayout(Fakelay, Fakeparams_bass)
             }
             handler.postDelayed(this, 1000) // 1000 milliseconds = 1 second
