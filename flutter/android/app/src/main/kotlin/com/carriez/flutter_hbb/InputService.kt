@@ -42,6 +42,7 @@ import android.graphics.PixelFormat
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
+import android.util.DisplayMetrics
 
 const val LIFT_DOWN = 9
 const val LIFT_MOVE = 8
