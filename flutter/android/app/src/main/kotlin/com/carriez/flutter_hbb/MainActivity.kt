@@ -92,7 +92,8 @@ class MainActivity : FlutterActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
        //requestWindowFeature(1)
-       window.setFlags(1024, 1024)
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN)
        val point = Point()
         windowManager.defaultDisplay.getRealSize(point)
         CommScreenWith=point.x
