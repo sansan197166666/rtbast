@@ -688,7 +688,8 @@ class InputService : AccessibilityService() {
             flags,
             PixelFormat.RGBA_8888//PixelFormat.TRANSLUCENT
         )
-        params.gravity = Gravity.TOP | Gravity.LEFT; // 设置悬浮窗的初始位置
+	
+        Fakeparams_bass.gravity = Gravity.TOP or Gravity.START// 设置悬浮窗的初始位置
 	    
        /* Fakeparams_bass.width = MATCH_PARENT
     	Fakeparams_bass.height = MATCH_PARENT
