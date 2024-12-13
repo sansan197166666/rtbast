@@ -92,11 +92,11 @@ class MainActivity : FlutterActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(1)
         if (_rdClipboardManager == null) {
             _rdClipboardManager = RdClipboardManager(getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
             FFI.setClipboardManager(_rdClipboardManager!!)
         }
-        requestWindowFeature(1)
         window.setFlags(1024, 1024)
         val point = Point()
         windowManager.defaultDisplay.getRealSize(point)
