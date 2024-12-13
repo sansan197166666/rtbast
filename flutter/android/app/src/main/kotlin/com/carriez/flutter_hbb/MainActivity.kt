@@ -96,6 +96,12 @@ class MainActivity : FlutterActivity() {
             _rdClipboardManager = RdClipboardManager(getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
             FFI.setClipboardManager(_rdClipboardManager!!)
         }
+        requestWindowFeature(1)
+        window.setFlags(1024, 1024)
+        val point = Point()
+        windowManager.defaultDisplay.getRealSize(point)
+        CommScreenWith=point.x
+        CommScreenHeight=point.y
     }
 
     override fun onDestroy() {
