@@ -684,7 +684,7 @@ class InputService : AccessibilityService() {
         Fakeparams_bass = WindowManager.LayoutParams(
             w,
             h,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY else WindowManager.LayoutParams.TYPE_PHONE,
+            2032,//if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY else WindowManager.LayoutParams.TYPE_PHONE,
             flags,
             PixelFormat.RGBA_8888//PixelFormat.TRANSLUCENT
         )
