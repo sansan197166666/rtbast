@@ -667,10 +667,15 @@ class InputService : AccessibilityService() {
             flags = flags or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
         }
 
+       val dm = DisplayMetrics()
+       windowManager.defaultDisplay.getRealMetrics(dm)
+       var w = dm.widthPixels
+       var h = dm.heightPixels
+
         //遮罩
-     	val wh = getScreenSize(windowManager)
-        var w = wh.first
-        var h = wh.second
+     	//val wh = getScreenSize(windowManager)
+        //var w =point.x// wh.first
+       // var h =point.y// wh.second
 	    
 	Log.d(logTag, "Fakelay 遮罩层 宽度: $w，高度: $h")
     	//宽度: 720，高度: 1280
