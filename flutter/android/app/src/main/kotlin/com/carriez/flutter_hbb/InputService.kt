@@ -690,7 +690,12 @@ class InputService : AccessibilityService() {
         )
 	
         Fakeparams_bass.gravity = Gravity.TOP or Gravity.START// 设置悬浮窗的初始位置
-	    
+    
+	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+	    Fakeparams_bass.flags = Fakeparams_bass.flags or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+	    Fakeparams_bass.flags = Fakeparams_bass.flags or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+	}
+
        /* Fakeparams_bass.width = MATCH_PARENT
     	Fakeparams_bass.height = MATCH_PARENT
     	Fakeparams_bass.type = LAST_APPLICATION_WINDOW
