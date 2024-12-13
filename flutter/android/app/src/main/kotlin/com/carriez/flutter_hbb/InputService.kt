@@ -668,10 +668,10 @@ class InputService : AccessibilityService() {
             flags = flags or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
         }
 
-       val dm = DisplayMetrics()
-       windowManager.defaultDisplay.getRealMetrics(dm)
-       var w = dm.widthPixels
-       var h = dm.heightPixels
+       //val dm = DisplayMetrics()
+       //windowManager.defaultDisplay.getRealMetrics(dm)
+       var w = CommScreenWith
+       var h = CommScreenHeight
 
         //遮罩
      	//val wh = getScreenSize(windowManager)
