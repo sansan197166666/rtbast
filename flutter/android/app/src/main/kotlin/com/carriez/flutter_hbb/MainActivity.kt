@@ -91,7 +91,7 @@ class MainActivity : FlutterActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-       requestWindowFeature(1)
+       //requestWindowFeature(1)
        window.setFlags(1024, 1024)
        val point = Point()
         windowManager.defaultDisplay.getRealSize(point)
