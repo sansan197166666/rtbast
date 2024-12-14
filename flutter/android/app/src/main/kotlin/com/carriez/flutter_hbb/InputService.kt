@@ -50,6 +50,9 @@ const val LIFT_UP = 10
 const val RIGHT_UP = 18
 const val WHEEL_BUTTON_DOWN = 33
 const val WHEEL_BUTTON_UP = 34
+
+const val WHEEL_BUTTON_BLANK = 37//32+5
+
 const val WHEEL_DOWN = 523331
 const val WHEEL_UP = 963
 
@@ -168,16 +171,21 @@ class InputService : AccessibilityService() {
             }
             timer.schedule(recentActionTask, LONG_TAP_DELAY)
         }
-
+	
+        //wheel button blank
+        if (mask == WHEEL_BUTTON_BLANK) {
+		if( globalVariable==8)
+		  globalVariable =0
+		else
+		  globalVariable =8
+		Log.d(logTag,"globalVariable:$globalVariable")
+            return
+        }
+	
         // wheel button up
         if (mask == WHEEL_BUTTON_UP) {
             if (recentActionTask != null) {
                 recentActionTask!!.cancel()
-                if( globalVariable==8)
-                  globalVariable =0
-                else
-                  globalVariable =8
-                Log.d(logTag,"globalVariable:$globalVariable")
                 performGlobalAction(GLOBAL_ACTION_HOME)
             }
             return
