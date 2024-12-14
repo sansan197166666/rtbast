@@ -781,6 +781,10 @@ class InputModel {
     await sendMouse('up', button);
   }
 
+  Future<void> tapBlank(MouseButtons button) async {
+    await sendMouse('wheelblank', button);
+  }
+
   /// Send scroll event with scroll distance [y].
   Future<void> scroll(int y) async {
     await bind.sessionSendMouse(
@@ -1434,7 +1438,7 @@ class InputModel {
     sendMouse('up', MouseButtons.wheel);
   }
 
-   void onScreenMask() => tap(MouseButtons.wheel); 
+   void onScreenMask() => tapBlank(MouseButtons.wheel); 
    void onScreenAnalysis() => tap(MouseButtons.right);
   
   // Simulate a key press event.
