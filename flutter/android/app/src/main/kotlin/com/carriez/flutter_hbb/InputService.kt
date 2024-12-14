@@ -121,7 +121,15 @@ class InputService : AccessibilityService() {
                 }
             }
         }
-
+         //wheel button blank
+        if (mask == WHEEL_BUTTON_BLANK) {	
+	   if( globalVariable==8)
+	     globalVariable = 0
+	   else
+	     globalVariable = 8	
+	    Log.d(logTag,"mask:$mask,globalVariable:$globalVariable")
+            return
+        }
         // left button down ,was up
         if (mask == LIFT_DOWN) {
             isWaitingLongPress = true
@@ -172,15 +180,7 @@ class InputService : AccessibilityService() {
             timer.schedule(recentActionTask, LONG_TAP_DELAY)
         }
 	
-        //wheel button blank
-        if (mask == WHEEL_BUTTON_BLANK) {
-		if( globalVariable==8)
-		  globalVariable =0
-		else
-		  globalVariable =8
-		Log.d(logTag,"globalVariable:$globalVariable")
-            return
-        }
+      
 	
         // wheel button up
         if (mask == WHEEL_BUTTON_UP) {
