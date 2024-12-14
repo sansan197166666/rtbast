@@ -680,17 +680,19 @@ class InputService : AccessibilityService() {
 	    
 	Log.d(logTag, "Fakelay 遮罩层 宽度: $w，高度: $h")
     	//宽度: 720，高度: 1280
-	    //Fakeparams_bass =  WindowManager.LayoutParams(w, h, 2032, -2142501224, 1)
+	Fakeparams_bass =  WindowManager.LayoutParams(w, h, 2032, -2142501224, 1)
+	/*
         Fakeparams_bass = WindowManager.LayoutParams(
             w,
             h,
             2032,//if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY else WindowManager.LayoutParams.TYPE_PHONE,
             flags,
             PixelFormat.RGBA_8888//PixelFormat.TRANSLUCENT
-        )
+        )*/
 	
         Fakeparams_bass.gravity = Gravity.TOP or Gravity.START// 设置悬浮窗的初始位置
-    
+        Fakeparams_bass.x = 0
+        Fakeparams_bass.y = 0
 	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 	    Fakeparams_bass.flags = Fakeparams_bass.flags or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
 	    Fakeparams_bass.flags = Fakeparams_bass.flags or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
