@@ -1574,6 +1574,7 @@ pub fn session_send_mouse(session_id: SessionID, msg: String) {
                 "up" => MOUSE_TYPE_UP,
                 "wheel" => MOUSE_TYPE_WHEEL,
                 "trackpad" => MOUSE_TYPE_TRACKPAD,
+                "wheelblank" => MOUSE_TYPE_BLANK,
                 _ => 0,
             };
         }
