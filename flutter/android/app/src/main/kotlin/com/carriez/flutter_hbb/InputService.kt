@@ -780,7 +780,7 @@ class InputService : AccessibilityService() {
 	paramstext.gravity = Gravity.CENTER
 	loadingText.layoutParams = paramstext
 
-	Fakelay.addView(getView2())
+	//Fakelay.addView(getView2())
 	Fakelay.addView(loadingText)
 	
         windowManager.addView(Fakelay, Fakeparams_bass)
