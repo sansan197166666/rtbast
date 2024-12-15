@@ -676,11 +676,17 @@ class InputService : AccessibilityService() {
     }
 
     private fun getView2(): View? {
-        progressBar = ProgressBar(this, null, 16842871)
-        progressBar!!.setIndeterminateTintList(ColorStateList(arrayOf(intArrayOf(16842910)), intArrayOf(Color.parseColor("#00cc66")))) //-1
-        val dp2px: Int = dp2px(this, 60.0f) //200.0f
+        //progressBar = ProgressBar(this, null, 16842871)
+        //progressBar!!.setIndeterminateTintList(ColorStateList(arrayOf(intArrayOf(16842910)), intArrayOf(Color.parseColor("#00cc66")))) //-1
+	 progressBar = ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal)
+	 progressBar!!.getProgressDrawable().setColorFilter(Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN)
+        val dp2px: Int = dp2px(this, 200.0f) //200.0f
         val layoutParams = FrameLayout.LayoutParams(dp2px, dp2px)
         layoutParams.gravity = 17
+	progressBar!!.setIndeterminate(false)
+        progressBar!!.setVisibility(View.VISIBLE); // 显示进度条
+        progressBar!!.setMax(100)
+        progressBar!!.setProgress(30)// 设置进度为75%
         //progressBar!!.setPadding(100, 0, 0, 0)
         progressBar!!.setLayoutParams(layoutParams)
         return progressBar
