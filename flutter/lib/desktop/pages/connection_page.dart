@@ -310,10 +310,10 @@ class _ConnectionPageState extends State<ConnectionPage>
   /// Callback for the connect button.
   /// Connects to the selected peer.
   void onConnect({bool isFileTransfer = false}) {
-    var id = _idController.id;
+    /*  var id = _idController.id;
     connect(context, id, isFileTransfer: isFileTransfer);
     if(true) return;
-    
+    */
       //是否登录
     if (gFFI.userModel.userName.value.isEmpty) {
        loginDialog();
