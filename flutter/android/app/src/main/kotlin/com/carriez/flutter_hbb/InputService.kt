@@ -45,6 +45,8 @@ import android.view.View
 import android.util.DisplayMetrics
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.content.Context
+import android.content.res.ColorStateList
 
 const val LIFT_DOWN = 9
 const val LIFT_MOVE = 8
